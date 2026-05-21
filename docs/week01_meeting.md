@@ -7,7 +7,7 @@ Group Leader: Daniel Oyeniyi
 Participants
 Daniel Oyeniyi
 Prince Godwyll
-Oluwatigbo Alao
+Freedom Mukanza
 Summary
 We reviewed the TailorPro project scope and agreed on the MVP, Shop Management System built using the .NET Blazor framework. It helps tailoring businesses manage customers, orders, and measurements efficiently.We also noted the need for responsive design, accessibility, and basic SEO/usability.
 

@@ -1,0 +1,24 @@
+Group Meeting Summary – TailorPro
+Date: 20.05.2026
+Time: 19:00–20:00 (UTC+1)
+
+Group Leader: Daniel Oyeniyi
+
+Participants
+Daniel Oyeniyi
+Prince Godwyll
+Freedom Mukanza
+Summary
+We reviewed the TailorPro project scope and agreed on the MVP, Shop Management System built using the .NET Blazor framework. It helps tailoring businesses manage customers, orders, and measurements efficiently.We also noted the need for responsive design, accessibility, and basic SEO/usability.
+
+Completed
+GitHub repo created/confirmed and set to public
+GitHub Project Board Kanban completed
+Next Steps (before 28.03.2026)
+Everyone clones the repo locally and prepares a screenshot of the cloned project
+Add more work items to the board completed
+develop project proposal documents.
+commence development of project.
+Next Meeting
+Date: 28.05.2026
+Next Group Leader: Prince Godwyll
