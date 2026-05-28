@@ -105,6 +105,7 @@ TailorPro is designed to work on:
 - Daniel Oyeniyi
 - Prince Godwyll
 - Freedom Mukanza
+- Oluwatigbo Alao
 
 ## 🚀 Getting Started
 
