@@ -1,0 +1,56 @@
+@page "/customers/add"
+@page "/customers/edit/{Id:int}"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Edit" : "Add") Customer — TailorPro</PageTitle>
+
+<h3>@(Id.HasValue ? "Edit" : "Add") Customer</h3>
+
+<div class="col-md-6">
+    <EditForm Model="model" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" />
+
+        <div class="mb-3">
+            <label class="form-label">Full Name *</label>
+            <InputText class="form-control" @bind-Value="model.FullName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <InputText class="form-control" @bind-Value="model.PhoneNumber" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <InputText class="form-control" @bind-Value="model.Email" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <InputTextArea class="form-control" @bind-Value="model.Address" rows="3" />
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">Save</button>
+        <a href="/customers" class="btn btn-secondary">Cancel</a>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Customer model = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue)
+            model = await CustomerSvc.GetByIdAsync(Id.Value) ?? new();
+    }
+
+    private async Task Save()
+    {
+        if (Id.HasValue) await CustomerSvc.UpdateAsync(model);
+        else await CustomerSvc.AddAsync(model);
+        Nav.NavigateTo("/customers");
+    }
+}

@@ -1,0 +1,65 @@
+@page "/customers/{Id:int}"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Customer Detail — TailorPro</PageTitle>
+
+@if (customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>@customer.FullName</h3>
+        <div>
+            <a href="/customers/edit/@customer.Id" class="btn btn-outline-secondary me-2">Edit</a>
+            <a href="/customers" class="btn btn-outline-primary">Back</a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <p><strong>Phone:</strong> @(customer.PhoneNumber ?? "—")</p>
+            <p><strong>Email:</strong> @(customer.Email ?? "—")</p>
+            <p><strong>Address:</strong> @(customer.Address ?? "—")</p>
+            <p><strong>Customer since:</strong> @customer.CreatedAt.ToString("dd MMM yyyy")</p>
+        </div>
+    </div>
+
+    <h5>Orders</h5>
+    @if (!customer.Orders.Any())
+    {
+        <p class="text-muted">No orders yet. <a href="/orders/add">Create one</a></p>
+    }
+    else
+    {
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr><th>Description</th><th>Status</th><th>Price</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var o in customer.Orders)
+                {
+                    <tr>
+                        <td>@o.Description</td>
+                        <td><span class="badge bg-secondary">@o.Status</span></td>
+                        <td>R @o.Price.ToString("N2")</td>
+                        <td>@o.OrderDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private Customer? customer;
+
+    protected override async Task OnInitializedAsync() =>
+        customer = await CustomerSvc.GetByIdAsync(Id);
+}

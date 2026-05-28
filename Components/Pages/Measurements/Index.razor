@@ -1,0 +1,84 @@
+@page "/measurements/{CustomerId:int}"
+@page "/measurements"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject MeasurementService MeasurementSvc
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Measurements — TailorPro</PageTitle>
+
+<h3>Measurements</h3>
+
+@if (CustomerId == 0)
+{
+    <p class="text-muted">Select a customer from the
+        <a href="/customers">Customers</a> page to manage their measurements.
+    </p>
+}
+else if (customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h5 class="mb-3">@customer.FullName</h5>
+
+    <div class="col-md-5">
+        <EditForm Model="model" OnValidSubmit="Save">
+            <div class="mb-3">
+                <label class="form-label">Chest (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.Chest" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Waist (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.Waist" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hips (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.Hips" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Shoulder Width (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.ShoulderWidth" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Sleeve Length (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.SleeveLength" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Trouser Length (cm)</label>
+                <InputNumber class="form-control" @bind-Value="model.TrouserLength" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <InputTextArea class="form-control" @bind-Value="model.Notes" rows="2" />
+            </div>
+
+            <button type="submit" class="btn btn-success me-2">Save</button>
+            <a href="/customers/@CustomerId" class="btn btn-secondary">Back</a>
+        </EditForm>
+    </div>
+}
+
+@code {
+    [Parameter] public int CustomerId { get; set; }
+    private Measurement model = new();
+    private Customer? customer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (CustomerId == 0) return;
+        customer = await CustomerSvc.GetByIdAsync(CustomerId);
+        var existing = await MeasurementSvc.GetByCustomerIdAsync(CustomerId);
+        if (existing != null) model = existing;
+        else model.CustomerId = CustomerId;
+    }
+
+    private async Task Save()
+    {
+        await MeasurementSvc.SaveAsync(model);
+        Nav.NavigateTo($"/customers/{CustomerId}");
+    }
+}

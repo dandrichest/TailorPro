@@ -1,0 +1,70 @@
+@page "/customers"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Customers — TailorPro</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Customers</h3>
+    <a href="/customers/add" class="btn btn-primary">+ Add Customer</a>
+</div>
+
+<input class="form-control mb-3" placeholder="Search by name..."
+       @bind="search" @bind:event="oninput" />
+
+@if (customers == null)
+{
+    <p>Loading...</p>
+}
+else if (!FilteredCustomers.Any())
+{
+    <p class="text-muted">No customers found.</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th><th>Phone</th><th>Email</th><th>Orders</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in FilteredCustomers)
+            {
+                <tr>
+                    <td>@c.FullName</td>
+                    <td>@c.PhoneNumber</td>
+                    <td>@c.Email</td>
+                    <td>@c.Orders.Count</td>
+                    <td>
+                        <a href="/customers/@c.Id" class="btn btn-sm btn-outline-primary me-1">View</a>
+                        <a href="/customers/edit/@c.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
+                        <button class="btn btn-sm btn-outline-danger"
+                                @onclick="() => Delete(c.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Customer>? customers;
+    private string search = string.Empty;
+
+    private IEnumerable<Customer> FilteredCustomers =>
+        customers?.Where(c => c.FullName.Contains(search, StringComparison.OrdinalIgnoreCase))
+        ?? Enumerable.Empty<Customer>();
+
+    protected override async Task OnInitializedAsync() =>
+        customers = await CustomerSvc.GetAllAsync();
+
+    private async Task Delete(int id)
+    {
+        await CustomerSvc.DeleteAsync(id);
+        customers = await CustomerSvc.GetAllAsync();
+    }
+}

@@ -1,0 +1,74 @@
+@page "/orders/add"
+@page "/orders/edit/{Id:int}"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject OrderService OrderSvc
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Edit" : "New") Order — TailorPro</PageTitle>
+
+<h3>@(Id.HasValue ? "Edit" : "New") Order</h3>
+
+<div class="col-md-6">
+    <EditForm Model="model" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" />
+
+        <div class="mb-3">
+            <label class="form-label">Customer *</label>
+            <InputSelect class="form-select" @bind-Value="model.CustomerId">
+                <option value="0">— Select customer —</option>
+                @foreach (var c in customers)
+                {
+                    <option value="@c.Id">@c.FullName</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description *</label>
+            <InputTextArea class="form-control" @bind-Value="model.Description" rows="3" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price (R)</label>
+            <InputNumber class="form-control" @bind-Value="model.Price" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <InputSelect class="form-select" @bind-Value="model.Status">
+                @foreach (var s in Enum.GetValues<OrderStatus>())
+                {
+                    <option value="@s">@s</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Due Date</label>
+            <InputDate class="form-control" @bind-Value="model.DueDate" />
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">Save</button>
+        <a href="/orders" class="btn btn-secondary">Cancel</a>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Order model = new();
+    private List<Customer> customers = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await CustomerSvc.GetAllAsync();
+        if (Id.HasValue)
+            model = await OrderSvc.GetByIdAsync(Id.Value) ?? new();
+    }
+
+    private async Task Save()
+    {
+        if (Id.HasValue) await OrderSvc.UpdateAsync(model);
+        else await OrderSvc.AddAsync(model);
+        Nav.NavigateTo("/orders");
+    }
+}

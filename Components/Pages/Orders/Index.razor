@@ -1,0 +1,64 @@
+@page "/orders"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject OrderService OrderSvc
+@rendermode InteractiveServer
+
+<PageTitle>Orders — TailorPro</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Orders</h3>
+    <a href="/orders/add" class="btn btn-primary">+ New Order</a>
+</div>
+
+@if (orders == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr><th>Customer</th><th>Description</th><th>Status</th><th>Price</th><th>Due</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var o in orders)
+            {
+                <tr>
+                    <td>@o.Customer.FullName</td>
+                    <td>@o.Description</td>
+                    <td><span class="badge @BadgeClass(o.Status)">@o.Status</span></td>
+                    <td>R @o.Price.ToString("N2")</td>
+                    <td>@(o.DueDate?.ToString("dd MMM yyyy") ?? "—")</td>
+                    <td>
+                        <a href="/orders/edit/@o.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
+                        <button class="btn btn-sm btn-outline-danger"
+                                @onclick="() => Delete(o.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Order>? orders;
+
+    protected override async Task OnInitializedAsync() =>
+        orders = await OrderSvc.GetAllAsync();
+
+    private async Task Delete(int id)
+    {
+        await OrderSvc.DeleteAsync(id);
+        orders = await OrderSvc.GetAllAsync();
+    }
+
+    private string BadgeClass(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending    => "bg-warning text-dark",
+        OrderStatus.InProgress => "bg-info text-dark",
+        OrderStatus.Completed  => "bg-success",
+        OrderStatus.Delivered  => "bg-secondary",
+        _                      => "bg-light text-dark"
+    };
+}
