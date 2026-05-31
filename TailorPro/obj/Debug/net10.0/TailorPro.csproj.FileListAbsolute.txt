@@ -345,7 +345,6 @@ C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/obj/Debug/net10.0/r
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/rjimswa.dswa.cache.json
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
-/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/scopedcss/Components/Layout/ReconnectModal.razor.rz.scp.css
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/scopedcss/bundle/TailorPro.styles.css
@@ -411,5 +410,6 @@ C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/obj/Debug/net10.0/r
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/ref/TailorPro.dll
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/0a64whe88x-{0}-4ae090dqpw-4ae090dqpw.gz
 /Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/ker3k1tu47-{0}-z4o3j22u1e-z4o3j22u1e.gz
-/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/hjgmmc8cd8-{0}-zik3ewnton-zik3ewnton.gz
-/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/l0qt803lq4-{0}-zik3ewnton-zik3ewnton.gz
+/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/scopedcss/Components/Pages/Home.razor.rz.scp.css
+/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/hjgmmc8cd8-{0}-jgw7kr6z5s-jgw7kr6z5s.gz
+/Users/apple/Desktop/TailorPro/TailorPro/obj/Debug/net10.0/compressed/l0qt803lq4-{0}-jgw7kr6z5s-jgw7kr6z5s.gz
