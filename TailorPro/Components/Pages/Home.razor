@@ -1,7 +1,239 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>TailorPro – Precision Tailoring, Perfected</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-hero">
 
-Welcome to your new app.
+            <!-- Left Content -->
+            <div class="col-lg-6 hero-content">
+                <h1 class="hero-headline">
+                    Dress with<br />
+                    Confidence.<br />
+                    <span class="headline-muted">Tailored Just</span><br />
+                    <span class="headline-muted">For You.</span>
+                </h1>
+                <p class="hero-body">
+                    From bespoke suits to everyday alterations, TailorPro connects
+                    you with expert tailors who bring your vision to life with
+                    precision, craft, and care.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number text-brand">500+</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-brand">30+</span>
+                        <span class="stat-label">Expert Tailors</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number stat-muted">2000+</span>
+                        <span class="stat-label">Pieces Crafted</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Geometric Illustration -->
+            <div class="col-lg-6 d-flex justify-content-center justify-content-lg-end">
+                <div class="hero-illustration">
+                    <img src="images/hero.jpg" alt="Tailoring Illustration" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="services-section">
+    <div class="container">
+        <h2 class="section-title">What We Offer</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon bg-brand-light">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="1.8"
+                             stroke-linecap="round">
+                            <path d="M3 6h18M3 12h18M3 18h12" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Bespoke Suits</h3>
+                    <p class="service-desc">Hand-crafted suits measured and tailored to your exact dimensions and style
+                        preferences.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon bg-brand-light">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="1.8"
+                                 stroke-linecap="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 3 v18M3 12 h18" />
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Alterations</h3>
+                        <p class="service-desc">Fast, precise alterations for any garment — hemming, resizing, repairs, and
+                            more.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <div class="service-icon bg-brand-light">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="1.8"
+                                     stroke-linecap="round">
+                                    <path
+                                    d="M12 2 L15.09 8.26 L22 9.27 L17 14.14 L18.18 21.02 L12 17.77 L5.82 21.02 L7 14.14 L2 9.27 L8.91 8.26 Z" />
+                                </svg>
+                            </div>
+                            <h3 class="service-title">Occasion Wear</h3>
+                            <p class="service-desc">Custom gowns, kente designs, and traditional attire for weddings, durbars,
+                                and ceremonies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .min-vh-hero {
+                    min-height: calc(100vh - 65px);
+                    padding: 3rem 0;
+                }
+
+                .hero-section {
+                    background: #ffffff;
+                }
+
+                .hero-headline {
+                    font-size: clamp(2.2rem, 5vw, 3.2rem);
+                    font-weight: 800;
+                    line-height: 1.12;
+                    color: #1a2410;
+                    letter-spacing: -0.03em;
+                    margin-bottom: 1.25rem;
+                }
+
+                .headline-muted {
+                    color: #c8d9b0;
+                }
+
+                .hero-body {
+                    font-size: 1rem;
+                    color: #555;
+                    max-width: 420px;
+                    line-height: 1.7;
+                    margin-bottom: 2.5rem;
+                }
+
+                .hero-stats {
+                    display: flex;
+                    gap: 2.5rem;
+                    flex-wrap: wrap;
+                }
+
+                .stat-item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2px;
+                }
+
+                .stat-number {
+                    font-size: 1.6rem;
+                    font-weight: 800;
+                    letter-spacing: -0.02em;
+                    line-height: 1;
+                }
+
+                .text-brand {
+                    color: #8B2635;
+                }
+
+                .stat-muted {
+                    color: #c8d9b0;
+                }
+
+                .stat-label {
+                    font-size: 0.82rem;
+                    color: #888;
+                    font-weight: 500;
+                }
+
+                .hero-illustration {
+                    padding: 1rem;
+                }
+
+                .hero-illustration svg {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                /* Services */
+                .services-section {
+                    background: #f8f9f5;
+                    padding: 5rem 0;
+                }
+
+                .section-title {
+                    font-size: 1.9rem;
+                    font-weight: 800;
+                    color: #1a2410;
+                    margin-bottom: 2.5rem;
+                    letter-spacing: -0.02em;
+                }
+
+                .service-card {
+                    background: #ffffff;
+                    border: 1px solid #eef0eb;
+                    border-radius: 12px;
+                    padding: 1.75rem;
+                    height: 100%;
+                    transition: transform 0.15s, box-shadow 0.15s;
+                }
+
+                .service-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 24px rgba(45, 80, 22, 0.08);
+                }
+
+                .service-icon {
+                    width: 52px;
+                    height: 52px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 1rem;
+                }
+
+                .bg-brand-light {
+                    background: #eef4e6;
+                }
+
+                .service-title {
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    color: #1a2410;
+                    margin-bottom: 0.5rem;
+                }
+
+                .service-desc {
+                    font-size: 0.88rem;
+                    color: #666;
+                    line-height: 1.65;
+                    margin: 0;
+                }
+
+                @@media (max-width: 768px) {
+                    .hero-illustration {
+                        margin-top: 2rem;
+                    }
+
+                    .hero-illustration svg {
+                        width: 280px;
+                        height: 280px;
+                    }
+                }
+            </style>

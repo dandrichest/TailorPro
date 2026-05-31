@@ -1,5 +1,4 @@
-﻿@page "/Account/Register"
-
+@page "/Account/Register"
 @using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
@@ -15,44 +14,219 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Register</PageTitle>
+<PageTitle>Register – TailorPro</PageTitle>
 
-<h1>Register</h1>
+<div class="login-wrapper">
+    <div class="login-card">
 
-<div class="row">
-    <div class="col-lg-6">
+        <div class="login-brand">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 8 L16 4 L26 8 L26 18 Q26 26 16 30 Q6 26 6 18 Z" fill="#2D5016" />
+                <path d="M12 16 L15 19 L21 13" stroke="#A8D45A" stroke-width="2.5" stroke-linecap="round"
+                      stroke-linejoin="round" fill="none" />
+            </svg>
+            <span class="brand-name"><strong>Tailor</strong><span class="brand-accent">Pro</span></span>
+        </div>
+
+        <h1 class="login-title">Create an account</h1>
+        <p class="login-subtitle">Join TailorPro and get started today.</p>
+
         <StatusMessage Message="@Message" />
+
         <EditForm Model="Input" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="Input.Email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+            <ValidationSummary class="tp-alert" role="alert" />
+
+            <div class="tp-field">
+                <label for="Input.Email">Email address</label>
+                <InputText @bind-Value="Input.Email" id="Input.Email" class="tp-input" autocomplete="username"
+                           aria-required="true" placeholder="name@example.com" />
+                <ValidationMessage For="() => Input.Email" class="tp-error" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+
+            <div class="tp-field">
                 <label for="Input.Password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
+                <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="tp-input"
+                           autocomplete="new-password" aria-required="true" placeholder="••••••••" />
+                <ValidationMessage For="() => Input.Password" class="tp-error" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="Input.ConfirmPassword">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+
+            <div class="tp-field">
+                <label for="Input.ConfirmPassword">Confirm password</label>
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword"
+                           class="tp-input" autocomplete="new-password" aria-required="true" placeholder="••••••••" />
+                <ValidationMessage For="() => Input.ConfirmPassword" class="tp-error" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+            <button type="submit" class="tp-btn-primary w-100">Create account</button>
         </EditForm>
-    </div>
-    <div class="col-lg-4 col-lg-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
+
+        <div class="login-footer">
+            Already have an account?
+            <a href="Account/Login" class="tp-link">Log in</a>
+        </div>
+
+        <div class="login-external">
+            <p class="external-label">Or register with</p>
             <ExternalLoginPicker />
-        </section>
+        </div>
+
     </div>
 </div>
+
+<style>
+    .login-wrapper {
+        min-height: calc(100vh - 65px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f9f5;
+        padding: 2rem 1rem;
+    }
+
+    .login-card {
+        background: #ffffff;
+        border: 1px solid #eef0eb;
+        border-radius: 16px;
+        padding: 2.5rem 2.25rem;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 4px 24px rgba(45, 80, 22, 0.06);
+    }
+
+    .login-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    .brand-name {
+        font-size: 1.3rem;
+        color: #1a2410;
+        letter-spacing: -0.02em;
+    }
+
+    .brand-accent {
+        color: #4a8a1e;
+    }
+
+    .login-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #1a2410;
+        text-align: center;
+        margin-bottom: 0.35rem;
+        letter-spacing: -0.02em;
+    }
+
+    .login-subtitle {
+        font-size: 0.88rem;
+        color: #888;
+        text-align: center;
+        margin-bottom: 1.75rem;
+    }
+
+    .tp-alert {
+        background: #fdf0f1;
+        border: 1px solid #f5c0c4;
+        color: #8B2635;
+        border-radius: 8px;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .tp-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 1rem;
+    }
+
+    .tp-field label {
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: #3d3d3d;
+    }
+
+    .tp-input {
+        width: 100%;
+        padding: 0.65rem 0.9rem;
+        border: 1.5px solid #dde5d0;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        color: #1a2410;
+        background: #fff;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        outline: none;
+    }
+
+    .tp-input:focus {
+        border-color: #2D5016;
+        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+    }
+
+    .tp-input::placeholder {
+        color: #bbb;
+    }
+
+    .tp-error {
+        font-size: 0.78rem;
+        color: #8B2635;
+    }
+
+    .tp-btn-primary {
+        display: block;
+        width: 100%;
+        background: #2D5016;
+        color: #ffffff;
+        border: none;
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+        text-align: center;
+        margin-top: 0.25rem;
+    }
+
+    .tp-btn-primary:hover {
+        background: #3d6b1e;
+    }
+
+    .tp-link {
+        color: #2D5016;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .tp-link:hover {
+        text-decoration: underline;
+    }
+
+    .login-footer {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #888;
+        margin-top: 1.25rem;
+    }
+
+    .login-external {
+        margin-top: 1.5rem;
+        border-top: 1px solid #eef0eb;
+        padding-top: 1.25rem;
+    }
+
+    .external-label {
+        text-align: center;
+        font-size: 0.82rem;
+        color: #bbb;
+        margin-bottom: 0.75rem;
+    }
+</style>
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
@@ -63,7 +237,8 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error =>
+error.Description))}";
 
     protected override void OnInitialized()
     {
@@ -73,7 +248,6 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
-
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -86,7 +260,6 @@
         }
 
         Logger.LogInformation("User created a new account with password.");
-
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
