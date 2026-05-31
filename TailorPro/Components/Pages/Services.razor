@@ -1,0 +1,329 @@
+@using TailorPro.Data
+@page "/services"
+
+<PageTitle>Services – TailorPro</PageTitle>
+
+<div class="services-page">
+    <div class="container">
+
+        <div class="page-header">
+            <h1 class="page-title">Our Services</h1>
+            <p class="page-subtitle">Handpicked tailoring services crafted with precision and care.</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="tp-input mb-3" placeholder="Search services..." @bind="searchTerm" />
+        </div>
+
+        <div class="services-grid">
+            @foreach (var service in ServicesData)
+            {
+                <ServiceCard ServiceItem="service" AddToCart="AddToCart" />
+            }
+        </div>
+
+    </div>
+</div>
+
+@if (cartMessage != null)
+{
+    <div class="toast-notification @(toastVisible ? "toast-show" : "")">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A8D45A" stroke-width="2.5"
+             stroke-linecap="round">
+            <path d="M20 6L9 17l-5-5" />
+        </svg>
+        @cartMessage
+    </div>
+}
+
+<style>
+    .services-page {
+        background: #f8f9f5;
+        min-height: calc(100vh - 65px);
+        padding: 3rem 0 4rem;
+    }
+
+    .page-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1a2410;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.4rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.92rem;
+        color: #888;
+    }
+
+    /* 4-per-row grid */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
+
+    @@media (max-width: 1100px) {
+        .services-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Card */
+    .service-card {
+        background: #ffffff;
+        border: 1px solid #eef0eb;
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(45, 80, 22, 0.1);
+    }
+
+    /* Visual area */
+    .card-visual {
+        position: relative;
+        height: 148px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .card-shape {
+        opacity: 0.92;
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.88);
+        color: #2D5016;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 20px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+    }
+
+    /* Body */
+    .card-body {
+        padding: 1rem 1.1rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.6rem;
+    }
+
+    .card-top {
+        flex: 1;
+    }
+
+    .card-title {
+        font-size: 0.97rem;
+        font-weight: 700;
+        color: #1a2410;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+        font-size: 0.8rem;
+        color: #777;
+        line-height: 1.55;
+        margin: 0;
+    }
+
+    .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card-duration {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.75rem;
+        color: #aaa;
+    }
+
+    /* Footer */
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #f0f2eb;
+        padding-top: 0.75rem;
+        margin-top: auto;
+    }
+
+    .card-price {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #2D5016;
+        letter-spacing: -0.02em;
+    }
+
+    .btn-cart {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: #2D5016;
+        color: #fff;
+        border: none;
+        padding: 0.42rem 0.85rem;
+        border-radius: 7px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+        white-space: nowrap;
+    }
+
+    .btn-cart:hover {
+        background: #3d6b1e;
+    }
+
+    /* Toast */
+    .toast-notification {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        background: #1a2410;
+        color: #fff;
+        padding: 0.7rem 1.1rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.25s, transform 0.25s;
+        pointer-events: none;
+        z-index: 9999;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .toast-show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .tp-input {
+        width: 100%;
+        padding: 0.65rem 0.9rem;
+        border: 1.5px solid #dde5d0;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        color: #1a2410;
+        background: #fff;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        outline: none;
+    }
+
+    .tp-input:focus {
+        border-color: #2D5016;
+        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+    }
+
+    .tp-input::placeholder {
+        color: #bbb;
+    }
+</style>
+
+@code {
+    private string? cartMessage;
+    private string searchTerm = string.Empty;
+    private bool toastVisible = false;
+    private System.Threading.CancellationTokenSource? toastCts;
+
+    private async Task AddToCart(ServiceItem service)
+    {
+        toastCts?.Cancel();
+        toastCts = new System.Threading.CancellationTokenSource();
+        var token = toastCts.Token;
+
+        cartMessage = $"{service.Name} added to cart";
+        toastVisible = true;
+        StateHasChanged();
+
+        try
+        {
+            await Task.Delay(2500, token);
+            toastVisible = false;
+            StateHasChanged();
+            await Task.Delay(300, token);
+            cartMessage = null;
+            StateHasChanged();
+        }
+        catch (TaskCanceledException) { }
+    }
+
+    private List<ServiceItem> ServicesData = new()
+    {
+        new(1, "Bespoke Suit", "A fully custom-fitted suit sewn from your chosen fabric to exact measurements.", "Formal", "7–10 days",
+            850, "#dce8cc",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="18" y="10" width="28" height="44" rx="4" fill="#2D5016"/><path d="M26 10 L32 22 L38 10" stroke="#A8D45A" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="28" y="26" width="8" height="12" rx="2" fill="#A8D45A"/></svg>"""),
+
+        new(3, "Dress Shirt", "Tailored slim or classic fit shirt in premium cotton or linen of your choice.", "Casual", "3–5 days",
+            280, "#e8f0dc",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M20 12 L12 24 L20 26 L20 54 L44 54 L44 26 L52 24 L44 12 L36 18 L28 18 Z" fill="#4a8a1e"/><path d="M28 18 L32 28 L36 18" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>"""),
+
+        new(4, "Kente Gown", "Traditional Ghanaian kente-accented gown for ceremonies and special occasions.", "Traditional",
+"5–8 days",
+            620, "#f5efe0",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M32 8 L20 20 L18 56 L46 56 L44 20 Z" fill="#8B2635"/><path d="M20 30 L44 30" stroke="#EDE8DC" stroke-width="3"/><path d="M20 38 L44 38" stroke="#EDE8DC" stroke-width="3"/><path d="M26 20 L38 20" stroke="#EDE8DC" stroke-width="3"/><circle cx="32" cy="12" r="5" fill="#8B2635" stroke="#EDE8DC" stroke-width="2"/></svg>"""),
+
+        new(5, "Trouser Hemming", "Professional hemming and adjustment to achieve the perfect trouser length and fit.",
+"Alteration", "Same day",
+            60, "#edf3e6",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M22 10 L22 54 L32 44 L42 54 L42 10 Z" fill="#2D5016" opacity="0.85"/><path d="M22 10 L42 10" stroke="#A8D45A" stroke-width="2.5" stroke-linecap="round"/></svg>"""),
+
+        new(6, "Ladies Skirt Suit", "Elegant two-piece skirt suit tailored for office and formal events.", "Formal", "6–9 days",
+            720, "#f0e8f5",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="20" y="10" width="24" height="20" rx="3" fill="#6B3A8B"/><path d="M18 32 L20 54 L44 54 L46 32 Z" fill="#8B52A8"/><rect x="28" y="14" width="8" height="4" rx="1" fill="#D4A8E8"/></svg>"""),
+
+        new(7, "Senator Wear", "Premium native senator outfit with matching fabric cap, tailored to your measurements.",
+"Native",
+"5–7 days",
+            480, "#fdf0e0",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M20 18 L16 54 L48 54 L44 18 Q32 10 20 18 Z" fill="#C67C2A"/><path d="M24 24 Q32 20 40 24" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="14" rx="10" ry="6" fill="#C67C2A" stroke="#fff" stroke-width="1.5"/></svg>"""),
+
+        new(8, "Wedding Dress", "Bespoke bridal gown with premium lace, beading, and flowing silhouette of your design.",
+"Bridal",
+"14–21 days",
+            1800, "#f9f5f0",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M32 8 C26 8 22 14 22 18 L16 54 L48 54 L42 18 C42 14 38 8 32 8 Z" fill="#EDE8DC" stroke="#ddd" stroke-width="1"/><circle cx="32" cy="10" r="4" fill="#EDE8DC" stroke="#ccc" stroke-width="1.5"/><path d="M20 38 Q32 34 44 38" stroke="#ccc" stroke-width="1.5" fill="none"/><path d="M17 46 Q32 40 47 46" stroke="#ccc" stroke-width="1.5" fill="none"/></svg>"""),
+
+        new(9, "Zip & Button Repair", "Fast professional repairs — replacing zippers, buttons, and broken seams on any garment.",
+"Alteration", "Same day",
+            35, "#e6f0f8",
+            """<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="16" fill="#185FA5" opacity="0.15"/><circle cx="32" cy="32" r="10" fill="none" stroke="#185FA5" stroke-width="2"/><circle cx="28" cy="28" r="2" fill="#185FA5"/><circle cx="36" cy="28" r="2" fill="#185FA5"/><circle cx="28" cy="36" r="2" fill="#185FA5"/><circle cx="36" cy="36" r="2" fill="#185FA5"/></svg>"""),
+    };
+}
