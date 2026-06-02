@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/apple/Desktop/TailorPro/TailorPro/TailorPro.csproj": {}
+    "C:\\Users\\DANIEL\\Documents\\CSE325\\TailorPro_Team_13\\TailorPro\\TailorPro.csproj": {}
   },
   "projects": {
-    "/Users/apple/Desktop/TailorPro/TailorPro/TailorPro.csproj": {
+    "C:\\Users\\DANIEL\\Documents\\CSE325\\TailorPro_Team_13\\TailorPro\\TailorPro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/apple/Desktop/TailorPro/TailorPro/TailorPro.csproj",
+        "projectUniqueName": "C:\\Users\\DANIEL\\Documents\\CSE325\\TailorPro_Team_13\\TailorPro\\TailorPro.csproj",
         "projectName": "TailorPro",
-        "projectPath": "/Users/apple/Desktop/TailorPro/TailorPro/TailorPro.csproj",
-        "packagesPath": "/Users/apple/.nuget/packages/",
-        "outputPath": "/Users/apple/Desktop/TailorPro/TailorPro/obj/",
+        "projectPath": "C:\\Users\\DANIEL\\Documents\\CSE325\\TailorPro_Team_13\\TailorPro\\TailorPro.csproj",
+        "packagesPath": "C:\\Users\\DANIEL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DANIEL\\Documents\\CSE325\\TailorPro_Team_13\\TailorPro\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/apple/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\DANIEL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -47,7 +47,7 @@
             "Microsoft.AspNetCore.App.Internal.Assets": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.7, )",
+              "version": "[10.0.8, )",
               "autoReferenced": true
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
