@@ -1,0 +1,73 @@
+@page "/customers/add"
+@page "/customers/edit/{Id:int}"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Edit" : "Add") Customer — TailorPro</PageTitle>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-brand text-white py-3" style="background-color: #2D5016;">
+                    <h4 class="mb-0 text-white"><i class="bi bi-person-plus-fill me-2"></i>@(Id.HasValue ? "Edit" : "Add New") Customer</h4>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <EditForm Model="model" OnValidSubmit="Save" FormName="customer-form">
+                        <DataAnnotationsValidator />
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Full Name *</label>
+                            <InputText class="form-control" @bind-Value="model.FullName" placeholder="e.g. Oluwatigbo Alao" />
+                            <ValidationMessage For="() => model.FullName" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Phone Number *</label>
+                            <InputText class="form-control" @bind-Value="model.PhoneNumber" placeholder="e.g. +233 24 123 4567" />
+                            <ValidationMessage For="() => model.PhoneNumber" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Email Address</label>
+                            <InputText class="form-control" @bind-Value="model.Email" placeholder="e.g. user@email.com" />
+                            <ValidationMessage For="() => model.Email" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Address</label>
+                            <InputTextArea class="form-control" @bind-Value="model.Address" rows="3" placeholder="e.g. 123 Main St, Accra" />
+                            <ValidationMessage For="() => model.Address" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="/customers" class="btn btn-outline-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn text-white px-4" style="background-color: #2D5016;">Save Customer</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Customer model = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue)
+            model = await CustomerSvc.GetByIdAsync(Id.Value) ?? new();
+    }
+
+    private async Task Save()
+    {
+        if (Id.HasValue) await CustomerSvc.UpdateAsync(model);
+        else await CustomerSvc.AddAsync(model);
+        Nav.NavigateTo("/customers");
+    }
+}

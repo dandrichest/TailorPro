@@ -1,0 +1,100 @@
+@page "/orders/add"
+@page "/orders/edit/{Id:int}"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject OrderService OrderSvc
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Edit" : "New") Order — TailorPro</PageTitle>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header text-white py-3" style="background-color: #2D5016;">
+                    <h4 class="mb-0 text-white"><i class="bi bi-cart-plus-fill me-2"></i>@(Id.HasValue ? "Edit" : "Create New") Order</h4>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <EditForm Model="model" OnValidSubmit="Save" FormName="order-form">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Customer *</label>
+                            <InputSelect class="form-select" @bind-Value="model.CustomerId">
+                                <option value="0">— Select customer —</option>
+                                @foreach (var c in customers)
+                                {
+                                    <option value="@c.Id">@c.FullName</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => model.CustomerId" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Order Description *</label>
+                            <InputTextArea class="form-control" @bind-Value="model.Description" rows="3" placeholder="e.g. Bespoke Three-Piece Blue Suit with Satin Lapel" />
+                            <ValidationMessage For="() => model.Description" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Price (₵) *</label>
+                            <InputNumber class="form-control" @bind-Value="model.Price" placeholder="e.g. 850" />
+                            <ValidationMessage For="() => model.Price" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Status *</label>
+                            <InputSelect class="form-select" @bind-Value="model.Status">
+                                @foreach (var s in Enum.GetValues<OrderStatus>())
+                                {
+                                    <option value="@s">@s</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => model.Status" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Due Date *</label>
+                            <InputDate class="form-control" @bind-Value="model.DueDate" />
+                            <ValidationMessage For="() => model.DueDate" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="/orders" class="btn btn-outline-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn text-white px-4" style="background-color: #2D5016;">Save Order</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Order model = new();
+    private List<Customer> customers = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await CustomerSvc.GetAllAsync();
+        if (Id.HasValue)
+        {
+            model = await OrderSvc.GetByIdAsync(Id.Value) ?? new();
+        }
+        else
+        {
+            model.OrderDate = DateTime.UtcNow;
+            model.DueDate = DateTime.UtcNow.AddDays(7); // default 7 days due date
+        }
+    }
+
+    private async Task Save()
+    {
+        if (Id.HasValue) await OrderSvc.UpdateAsync(model);
+        else await OrderSvc.AddAsync(model);
+        Nav.NavigateTo("/orders");
+    }
+}
