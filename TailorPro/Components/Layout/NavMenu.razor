@@ -1,73 +1,133 @@
-﻿@implements IDisposable
-
+@implements IDisposable
 @inject NavigationManager NavigationManager
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">TailorPro</a>
+<nav class="tailorpro-navbar navbar navbar-expand-lg">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="">
+            <div class="brand-icon">
+                <img src="images/favicon.svg" alt="TailorPro Logo" width="28" height="28" />
+            </div>
+            <span class="brand-text"><span class="fw-bold">Tailor</span><span class="brand-accent">Pro</span></span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+            <ul class="navbar-nav align-items-center gap-2 me-3">
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-text-link" href="" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-text-link" href="services" Match="NavLinkMatch.All">Services</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-text-link" href="gallery" Match="NavLinkMatch.All">Gallery</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link nav-text-link" href="cart" Match="NavLinkMatch.All">Cart</NavLink>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2">
+                <AuthorizeView>
+                    <Authorized>
+                        <a class="btn btn-outline-brand" href="Account/Manage">
+                            @context.User.Identity?.Name
+                        </a>
+                        <form action="Account/Logout" method="post" class="d-inline">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit" class="btn btn-brand">Logout</button>
+                        </form>
+                    </Authorized>
+                    <NotAuthorized>
+                        <NavLink class="btn btn-outline-brand" href="Account/Login">Log in</NavLink>
+                        <NavLink class="btn btn-brand" href="Account/Register">Get Started</NavLink>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
     </div>
-</div>
+</nav>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<style>
+    .tailorpro-navbar {
+        background: #ffffff;
+        border-bottom: 1px solid #eef0eb;
+        padding: 0.75rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    }
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+    .brand-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
+    .brand-text {
+        font-size: 1.2rem;
+        color: #1a2410;
+        letter-spacing: -0.02em;
+    }
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
+    .brand-accent {
+        color: #4a8a1e;
+    }
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
-            </NavLink>
-        </div>
+    .nav-text-link {
+        color: #3d3d3d !important;
+        font-size: 0.92rem;
+        font-weight: 500;
+        padding: 0.4rem 0.75rem !important;
+        border-radius: 6px;
+        transition: background 0.15s, color 0.15s;
+    }
 
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <button type="submit" class="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </button>
-                    </form>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Register">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Login">
-                        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
-        </AuthorizeView>
-    </nav>
-</div>
+    .nav-text-link:hover,
+    .nav-text-link.active {
+        color: #2D5016 !important;
+        background: #f0f5e8;
+    }
+
+    .btn-outline-brand {
+        border: 1.5px solid #2D5016;
+        color: #2D5016;
+        background: transparent;
+        padding: 0.4rem 1.1rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-outline-brand:hover {
+        background: #f0f5e8;
+        color: #2D5016;
+    }
+
+    .btn-brand {
+        background: #2D5016;
+        color: #ffffff;
+        border: none;
+        padding: 0.4rem 1.2rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s;
+    }
+
+    .btn-brand:hover {
+        background: #3d6b1e;
+        color: #ffffff;
+    }
+</style>
 
 @code {
     private string? currentUrl;
@@ -89,4 +149,3 @@
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }
-

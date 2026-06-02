@@ -1,0 +1,44 @@
+@using TailorPro.Data
+
+<div class="service-card">
+    <div class="card-visual" style="background: @ServiceItem.BgColor">
+        <div class="card-shape">@((MarkupString)ServiceItem.Icon)</div>
+        <span class="card-badge">@ServiceItem.Category</span>
+    </div>
+    <div class="card-body">
+        <div class="card-top">
+            <h3 class="card-title">@ServiceItem.Name</h3>
+            <p class="card-desc">@ServiceItem.Description</p>
+        </div>
+        <div class="card-meta">
+            <span class="card-duration">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                @ServiceItem.Duration
+            </span>
+        </div>
+        <div class="card-footer">
+            <span class="card-price">₵@ServiceItem.Price.ToString("N0")</span>
+            <button class="btn-cart" @onclick="() => AddToCart.InvokeAsync(ServiceItem)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                Add to cart
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ServiceItem ServiceItem { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<ServiceItem> AddToCart { get; set; } = default!;
+}
