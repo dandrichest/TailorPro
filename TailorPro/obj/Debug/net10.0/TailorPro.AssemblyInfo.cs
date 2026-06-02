@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b890021e60b43687e4a06142bdc9e02f868c274")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30bd09dd16ca0f87ccd8bb1bfd27de449472f9e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
