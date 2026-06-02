@@ -1,0 +1,193 @@
+@page "/measurements/{CustomerId:int}"
+@page "/measurements"
+@using TailorPro.Models
+@using TailorPro.Services
+@inject MeasurementService MeasurementSvc
+@inject CustomerService CustomerSvc
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Measurements — TailorPro</PageTitle>
+
+<div class="container py-4">
+    @if (CustomerId == 0)
+    {
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-5 text-center">
+                <div class="mb-4">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="1.5">
+                        <path d="M12 2v20M17 5H7M17 10H7M17 15H7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3>No Customer Selected</h3>
+                <p class="text-muted max-width-500 mx-auto mt-2">
+                    Please select a customer from the customer directory to manage and record their individual body measurements.
+                </p>
+                <a href="/customers" class="btn text-white mt-3 px-4" style="background-color: #2D5016;">Go to Customers Directory</a>
+            </div>
+        </div>
+    }
+    else if (customer == null)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12">
+                <div class="card border-0 shadow-sm rounded-3 mb-4">
+                    <div class="card-header text-white py-3 d-flex justify-content-between align-items-center" style="background-color: #2D5016;">
+                        <h4 class="mb-0 text-white"><i class="bi bi-rulers me-2"></i>Body Measurements</h4>
+                        <span class="badge bg-white text-brand" style="color: #2D5016; font-size: 0.9rem;">Customer: @customer.FullName</span>
+                    </div>
+                    <div class="card-body p-4 bg-light">
+                        <EditForm Model="model" OnValidSubmit="Save" FormName="measurement-form">
+                            <DataAnnotationsValidator />
+
+                            <!-- Header Section -->
+                            <div class="row mb-4 align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="text-dark mb-1">Standard Tailoring Measurements</h5>
+                                    <p class="text-muted small mb-0">Provide precise measurements in centimeters (cm) for optimal tailoring results.</p>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <span class="text-muted small">Last Updated: @model.UpdatedAt.ToString("g")</span>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <!-- Left Column: Upper Body -->
+                                <div class="col-md-6">
+                                    <div class="card border-0 shadow-sm h-100 rounded-3">
+                                        <div class="card-body p-4">
+                                            <h6 class="card-title text-brand fw-bold mb-3 border-bottom pb-2" style="color: #2D5016;">
+                                                <i class="bi bi-person-fill me-2"></i>Upper Body Measurements
+                                            </h6>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Chest Circumference (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-circle"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.Chest" placeholder="e.g. 104" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.Chest" class="text-danger small mt-1" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Shoulder Width (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-arrows-expand"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.ShoulderWidth" placeholder="e.g. 48" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.ShoulderWidth" class="text-danger small mt-1" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Sleeve Length (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-bezier"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.SleeveLength" placeholder="e.g. 64" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.SleeveLength" class="text-danger small mt-1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Lower Body -->
+                                <div class="col-md-6">
+                                    <div class="card border-0 shadow-sm h-100 rounded-3">
+                                        <div class="card-body p-4">
+                                            <h6 class="card-title text-brand fw-bold mb-3 border-bottom pb-2" style="color: #2D5016;">
+                                                <i class="bi bi-gender-ambiguous me-2"></i>Lower Body Measurements
+                                            </h6>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Waist Circumference (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-record-circle"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.Waist" placeholder="e.g. 88" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.Waist" class="text-danger small mt-1" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Hips Circumference (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-compass"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.Hips" placeholder="e.g. 102" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.Hips" class="text-danger small mt-1" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold small text-dark">Trouser / Skirt Length (cm)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="bi bi-arrows-vertical"></i></span>
+                                                    <InputNumber class="form-control" @bind-Value="model.TrouserLength" placeholder="e.g. 100" />
+                                                    <span class="input-group-text">cm</span>
+                                                </div>
+                                                <ValidationMessage For="() => model.TrouserLength" class="text-danger small mt-1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Full Width: Notes -->
+                                <div class="col-12">
+                                    <div class="card border-0 shadow-sm rounded-3">
+                                        <div class="card-body p-4">
+                                            <h6 class="card-title text-brand fw-bold mb-3 border-bottom pb-2" style="color: #2D5016;">
+                                                <i class="bi bi-journal-text me-2"></i>Fitting Notes & Special Requests
+                                            </h6>
+                                            <div class="mb-2">
+                                                <InputTextArea class="form-control" @bind-Value="model.Notes" rows="3" placeholder="Enter posture details, slouching posture, custom fit preferences, style quirks, etc." />
+                                                <ValidationMessage For="() => model.Notes" class="text-danger small mt-1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <a href="/customers/@CustomerId" class="btn btn-outline-secondary px-4">Cancel</a>
+                                <button type="submit" class="btn text-white px-4" style="background-color: #2D5016;">Save Body Measurements</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int CustomerId { get; set; }
+    private Measurement model = new();
+    private Customer? customer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (CustomerId == 0) return;
+        customer = await CustomerSvc.GetByIdAsync(CustomerId);
+        var existing = await MeasurementSvc.GetByCustomerIdAsync(CustomerId);
+        if (existing != null) model = existing;
+        else model.CustomerId = CustomerId;
+    }
+
+    private async Task Save()
+    {
+        model.UpdatedAt = DateTime.UtcNow;
+        await MeasurementSvc.SaveAsync(model);
+        Nav.NavigateTo($"/customers/{CustomerId}");
+    }
+}

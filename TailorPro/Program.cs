@@ -38,6 +38,11 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+// TailorPro services
+builder.Services.AddScoped<TailorPro.Services.CustomerService>();
+builder.Services.AddScoped<TailorPro.Services.OrderService>();
+builder.Services.AddScoped<TailorPro.Services.MeasurementService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
