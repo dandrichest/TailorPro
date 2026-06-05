@@ -5,56 +5,185 @@
 @inject NavigationManager Nav
 @rendermode InteractiveServer
 
-<PageTitle>Customer Detail — TailorPro</PageTitle>
+<PageTitle>Customer Profile — TailorPro</PageTitle>
 
-@if (customer == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>@customer.FullName</h3>
-        <div>
-            <a href="/customers/edit/@customer.Id" class="btn btn-outline-secondary me-2">Edit</a>
-            <a href="/customers" class="btn btn-outline-primary">Back</a>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <p><strong>Phone:</strong> @(customer.PhoneNumber ?? "—")</p>
-            <p><strong>Email:</strong> @(customer.Email ?? "—")</p>
-            <p><strong>Address:</strong> @(customer.Address ?? "—")</p>
-            <p><strong>Customer since:</strong> @customer.CreatedAt.ToString("dd MMM yyyy")</p>
-        </div>
-    </div>
-
-    <h5>Orders</h5>
-    @if (!customer.Orders.Any())
+<div class="container py-4">
+    @if (customer == null)
     {
-        <p class="text-muted">No orders yet. <a href="/orders/add">Create one</a></p>
+        <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     }
     else
     {
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr><th>Description</th><th>Status</th><th>Price</th><th>Date</th></tr>
-            </thead>
-            <tbody>
-                @foreach (var o in customer.Orders)
-                {
-                    <tr>
-                        <td>@o.Description</td>
-                        <td><span class="badge bg-secondary">@o.Status</span></td>
-                        <td>R @o.Price.ToString("N2")</td>
-                        <td>@o.OrderDate.ToString("dd MMM yyyy")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <!-- Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h2 class="fw-bold text-dark mb-1"><i class="bi bi-person-badge me-2"></i>Customer Profile</h2>
+                <p class="text-muted small mb-0">View contact details, body measurements, and active orders for @customer.FullName.</p>
+            </div>
+            <div class="mt-3 mt-sm-0">
+                <a href="/customers/edit/@customer.Id" class="btn btn-outline-secondary px-3 me-2"><i class="bi bi-pencil-square me-1"></i>Edit Profile</a>
+                <a href="/customers" class="btn btn-secondary px-3"><i class="bi bi-arrow-left me-1"></i>Back to Directory</a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Contact Info & Measurements Column -->
+            <div class="col-lg-5">
+                <!-- Contact Info Card -->
+                <div class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bi bi-info-circle-fill me-2" style="color: #2D5016;"></i>Contact Details</h5>
+                        <dl class="row mb-0 small">
+                            <dt class="col-sm-4 text-muted">Full Name:</dt>
+                            <dd class="col-sm-8 fw-bold text-dark">@customer.FullName</dd>
+
+                            <dt class="col-sm-4 text-muted">Phone:</dt>
+                            <dd class="col-sm-8"><a href="tel:@customer.PhoneNumber" class="text-decoration-none text-dark fw-semibold">@customer.PhoneNumber</a></dd>
+
+                            <dt class="col-sm-4 text-muted">Email:</dt>
+                            <dd class="col-sm-8">@(string.IsNullOrEmpty(customer.Email) ? "—" : customer.Email)</dd>
+
+                            <dt class="col-sm-4 text-muted">Address:</dt>
+                            <dd class="col-sm-8 text-secondary">@(string.IsNullOrEmpty(customer.Address) ? "No address specified" : customer.Address)</dd>
+
+                            <dt class="col-sm-4 text-muted">Joined:</dt>
+                            <dd class="col-sm-8 text-muted">@customer.CreatedAt.ToString("dd MMMM yyyy")</dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <!-- Measurements Summary Card -->
+                <div class="card border-0 shadow-sm rounded-3 bg-white">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-rulers me-2" style="color: #2D5016;"></i>Body Measurements</h5>
+                            <a href="/measurements/@customer.Id" class="btn btn-sm text-white px-2 py-1" style="background-color: #2D5016; font-size: 0.8rem;">
+                                <i class="bi bi-pencil-fill me-1"></i>@(customer.Measurement == null ? "Add" : "Update")
+                            </a>
+                        </div>
+
+                        @if (customer.Measurement == null)
+                        {
+                            <div class="text-center py-4 bg-light rounded-3 border border-dashed">
+                                <p class="text-muted small mb-2">No body measurements recorded for this customer yet.</p>
+                                <a href="/measurements/@customer.Id" class="btn btn-sm btn-outline-success">Add Measurements Now</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row g-2 small">
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Chest</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.Chest cm</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Waist</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.Waist cm</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Hips</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.Hips cm</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Shoulders</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.ShoulderWidth cm</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Sleeve</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.SleeveLength cm</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded text-center">
+                                        <div class="text-muted text-xs text-uppercase">Trouser</div>
+                                        <div class="fw-bold text-dark">@customer.Measurement.TrouserLength cm</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @if (!string.IsNullOrEmpty(customer.Measurement.Notes))
+                            {
+                                <div class="mt-3 p-3 bg-light rounded small border-start border-4" style="border-color: #2D5016 !important;">
+                                    <div class="fw-bold text-dark mb-1">Fitting Notes:</div>
+                                    <div class="text-secondary italic">"@customer.Measurement.Notes"</div>
+                                </div>
+                            }
+                            
+                            <div class="text-end text-muted mt-2" style="font-size: 0.75rem;">
+                                Last Updated: @customer.Measurement.UpdatedAt.ToString("g")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Column -->
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-cart-check-fill me-2" style="color: #2D5016;"></i>Customer Orders</h5>
+                            <a href="/orders/add" class="btn btn-sm btn-outline-success px-2 py-1" style="font-size: 0.8rem;">
+                                <i class="bi bi-plus-circle me-1"></i>New Order
+                            </a>
+                        </div>
+
+                        @if (!customer.Orders.Any())
+                        {
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-2"><i class="bi bi-cart-x fs-1"></i></div>
+                                <p class="text-muted small mb-0">This customer hasn't placed any tailoring orders yet.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover align-middle small">
+                                    <thead>
+                                        <tr class="text-secondary">
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Price (₵)</th>
+                                            <th class="text-end">Order Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var o in customer.Orders)
+                                        {
+                                            <tr>
+                                                <td class="fw-semibold text-dark">@o.Description</td>
+                                                <td>
+                                                    <span class="badge rounded-pill px-2 py-1 @BadgeClass(o.Status)" style="font-size: 0.72rem;">
+                                                        @o.Status
+                                                    </span>
+                                                </td>
+                                                <td class="fw-bold">₵@o.Price.ToString("N0")</td>
+                                                <td class="text-end text-muted">@o.OrderDate.ToString("dd MMM yyyy")</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-}
+</div>
 
 @code {
     [Parameter] public int Id { get; set; }
@@ -62,4 +191,22 @@ else
 
     protected override async Task OnInitializedAsync() =>
         customer = await CustomerSvc.GetByIdAsync(Id);
+
+    private string BadgeClass(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending    => "bg-warning text-dark border border-warning",
+        OrderStatus.InProgress => "bg-info text-dark border border-info",
+        OrderStatus.Completed  => "bg-success text-white border border-success",
+        OrderStatus.Delivered  => "bg-secondary text-white border border-secondary",
+        _                      => "bg-light text-dark border"
+    };
 }
+
+<style>
+    .border-dashed {
+        border: 2px dashed #dde5d0 !important;
+    }
+    .text-xs {
+        font-size: 0.72rem !important;
+    }
+</style>

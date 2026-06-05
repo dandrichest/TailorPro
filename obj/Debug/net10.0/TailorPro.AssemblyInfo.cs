@@ -10,11 +10,11 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-TailorPro-addc12cc-8c5f-45ab-a31f-745d12ebda07")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-TailorPro-5d6d72da-3eeb-489b-ab33-e408d3b5e107")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3cc71cf8db6ef9f37150c429799beae1cca65e6e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+679aa1e9d4f6410b2d1395fd45d0b33f7a18a049")]
 [assembly: System.Reflection.AssemblyProductAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TailorPro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

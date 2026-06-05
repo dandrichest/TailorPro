@@ -195,12 +195,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/TailorPro/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/TailorPro/Components/Pages/Auth.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/TailorPro/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
+[D:/TailorPro/Components/Pages/Cart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/TailorPro/Components/Pages/Customers/AddEdit.razor]
@@ -223,6 +227,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/TailorPro/Components/Pages/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGb290ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/TailorPro/Components/Pages/Measurements/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNZWFzdXJlbWVudHNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -239,8 +247,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmRlcnNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/TailorPro/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
+[D:/TailorPro/Components/Pages/ServiceCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXJ2aWNlQ2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/TailorPro/Components/Pages/Services.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXJ2aWNlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/TailorPro/Components/Routes.razor]
@@ -251,206 +263,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/TailorPro/TailorPro/Components/Account/Pages/AccessDenied.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xBY2Nlc3NEZW5pZWQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ConfirmEmail.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xDb25maXJtRW1haWwucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ConfirmEmailChange.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xDb25maXJtRW1haWxDaGFuZ2UucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ExternalLogin.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xFeHRlcm5hbExvZ2luLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ForgotPassword.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xGb3Jnb3RQYXNzd29yZC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ForgotPasswordConfirmation.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/InvalidPasswordReset.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xJbnZhbGlkUGFzc3dvcmRSZXNldC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/InvalidUser.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xJbnZhbGlkVXNlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Lockout.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xMb2Nrb3V0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Login.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xMb2dpbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/LoginWith2fa.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xMb2dpbldpdGgyZmEucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/LoginWithRecoveryCode.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xMb2dpbldpdGhSZWNvdmVyeUNvZGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/ChangePassword.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcQ2hhbmdlUGFzc3dvcmQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/DeletePersonalData.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcRGVsZXRlUGVyc29uYWxEYXRhLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/Disable2fa.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcRGlzYWJsZTJmYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/Email.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcRW1haWwucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/EnableAuthenticator.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcRW5hYmxlQXV0aGVudGljYXRvci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/ExternalLogins.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcRXh0ZXJuYWxMb2dpbnMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/GenerateRecoveryCodes.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcR2VuZXJhdGVSZWNvdmVyeUNvZGVzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcSW5kZXgucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/Passkeys.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcUGFzc2tleXMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/PersonalData.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcUGVyc29uYWxEYXRhLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/RenamePasskey.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcUmVuYW1lUGFzc2tleS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/ResetAuthenticator.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcUmVzZXRBdXRoZW50aWNhdG9yLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/SetPassword.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcU2V0UGFzc3dvcmQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/TwoFactorAuthentication.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcVHdvRmFjdG9yQXV0aGVudGljYXRpb24ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Manage/_Imports.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xNYW5hZ2VcX0ltcG9ydHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/Register.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZWdpc3Rlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/RegisterConfirmation.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZWdpc3RlckNvbmZpcm1hdGlvbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ResendEmailConfirmation.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZXNlbmRFbWFpbENvbmZpcm1hdGlvbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ResetPassword.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZXNldFBhc3N3b3JkLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/ResetPasswordConfirmation.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Pages/_Imports.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xfSW1wb3J0cy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/ExternalLoginPicker.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcRXh0ZXJuYWxMb2dpblBpY2tlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/ManageLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcTWFuYWdlTGF5b3V0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/ManageNavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcTWFuYWdlTmF2TWVudS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/PasskeySubmit.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcUGFzc2tleVN1Ym1pdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/RedirectToLogin.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcUmVkaXJlY3RUb0xvZ2luLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/ShowRecoveryCodes.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcU2hvd1JlY292ZXJ5Q29kZXMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Account/Shared/StatusMessage.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxTaGFyZWRcU3RhdHVzTWVzc2FnZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/App.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQXBwLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/Auth.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcQXV0aC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcQ291bnRlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/Error.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcRXJyb3IucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/Home.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcSG9tZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/NotFound.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcTm90Rm91bmQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcV2VhdGhlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/Routes.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUm91dGVzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/TailorPro/Components/_Imports.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcX0ltcG9ydHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/TailorPro/Components/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-8hm5yh9vzm
-
 [D:/TailorPro/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-41458uyygk
@@ -459,14 +271,6 @@ build_metadata.AdditionalFiles.CssScope = b-41458uyygk
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUmVjb25uZWN0TW9kYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-081y7df3hw
 
-[D:/TailorPro/TailorPro/Components/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcTGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-oyqrw71duc
-
-[D:/TailorPro/TailorPro/Components/Layout/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcTGF5b3V0XE5hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-d30ggfbwxb
-
-[D:/TailorPro/TailorPro/Components/Layout/ReconnectModal.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcTGF5b3V0XFJlY29ubmVjdE1vZGFsLnJhem9y
-build_metadata.AdditionalFiles.CssScope = b-bt001tgmqc
+[D:/TailorPro/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-v92hsqazc2

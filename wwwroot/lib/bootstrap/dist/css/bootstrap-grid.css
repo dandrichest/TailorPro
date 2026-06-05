@@ -4080,6 +4080,13 @@
   .d-print-none {
     display: none !important;
   }
+  .card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 }
 
 /*# sourceMappingURL=bootstrap-grid.css.map */

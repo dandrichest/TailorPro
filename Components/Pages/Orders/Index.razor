@@ -4,48 +4,249 @@
 @inject OrderService OrderSvc
 @rendermode InteractiveServer
 
-<PageTitle>Orders — TailorPro</PageTitle>
+<PageTitle>Orders Directory — TailorPro</PageTitle>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Orders</h3>
-    <a href="/orders/add" class="btn btn-primary">+ New Order</a>
+<div class="container py-4">
+    <!-- Page Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold text-dark mb-1"><i class="bi bi-cart3 me-2"></i>Order Management System</h2>
+            <p class="text-muted small mb-0">Track customer tailoring requests, timelines, prices, and production states.</p>
+        </div>
+        <div class="mt-3 mt-sm-0">
+            <a href="/orders/add" class="btn text-white px-4 shadow-sm" style="background-color: #2D5016;">+ Create New Order</a>
+        </div>
+    </div>
+
+    @if (orders == null)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Summary Stats Cards -->
+        <div class="row g-3 mb-4">
+            <!-- Total Orders -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                    <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted small fw-bold text-uppercase">Total Orders</span>
+                            <h3 class="fw-bold text-dark mb-0 mt-1">@orders.Count</h3>
+                        </div>
+                        <div class="p-3 bg-light rounded-3 text-secondary">
+                            <i class="bi bi-journal-check fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pending -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                    <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-warning small fw-bold text-uppercase">Pending</span>
+                            <h3 class="fw-bold text-warning mb-0 mt-1">@orders.Count(o => o.Status == OrderStatus.Pending)</h3>
+                        </div>
+                        <div class="p-3 bg-warning-light rounded-3 text-warning" style="background-color: #fefbeb;">
+                            <i class="bi bi-clock-history fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- In Progress -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                    <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-info small fw-bold text-uppercase">In Progress</span>
+                            <h3 class="fw-bold text-info mb-0 mt-1">@orders.Count(o => o.Status == OrderStatus.InProgress)</h3>
+                        </div>
+                        <div class="p-3 bg-info-light rounded-3 text-info" style="background-color: #f0f9ff;">
+                            <i class="bi bi-gear-fill fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Completed / Delivered -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+                    <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-success small fw-bold text-uppercase">Completed / Delivered</span>
+                            <h3 class="fw-bold text-success mb-0 mt-1">@orders.Count(o => o.Status == OrderStatus.Completed || o.Status == OrderStatus.Delivered)</h3>
+                        </div>
+                        <div class="p-3 bg-success-light rounded-3 text-success" style="background-color: #f0fdf4;">
+                            <i class="bi bi-check-circle-fill fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Navigation -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3 bg-white p-2 rounded-3 shadow-sm">
+            <ul class="nav nav-pills border-0 mb-0">
+                <li class="nav-item">
+                    <button class="nav-link btn-sm border-0 @(currentFilter == null ? "active" : "")" @onclick="() => FilterByStatus(null)" style="@(currentFilter == null ? "background-color: #2D5016; color: white;" : "color: #555;")">
+                        All Orders (@orders.Count)
+                    </button>
+                </li>
+                @foreach (var status in Enum.GetValues<OrderStatus>())
+                {
+                    var count = orders.Count(o => o.Status == status);
+                    <li class="nav-item ms-1">
+                        <button class="nav-link btn-sm border-0 @(currentFilter == status ? "active" : "")" @onclick="() => FilterByStatus(status)" style="@(currentFilter == status ? "background-color: #2D5016; color: white;" : "color: #555;")">
+                            @status (@count)
+                        </button>
+                    </li>
+                }
+            </ul>
+            <div class="text-muted small px-2">
+                Showing @FilteredOrders.Count of @orders.Count Orders
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-uppercase text-secondary small fw-bold">
+                        <tr>
+                            <th class="ps-4">Customer</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Price (₵)</th>
+                            <th>Due Date</th>
+                            <th class="text-center" style="width: 250px;">Status Actions</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small">
+                        @if (!FilteredOrders.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <div class="mb-2"><i class="bi bi-folder-x fs-1 text-muted"></i></div>
+                                    No orders found matching the filter criteria.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var o in FilteredOrders)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-bold text-dark">
+                                        <a href="/customers/@o.CustomerId" class="text-decoration-none text-dark">@o.Customer.FullName</a>
+                                    </td>
+                                    <td>
+                                        <div class="text-truncate" style="max-width: 280px;" title="@o.Description">
+                                            @o.Description
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge rounded-pill px-3 py-2 fw-semibold @BadgeClass(o.Status)">
+                                            <i class="@StatusIcon(o.Status) me-1"></i> @o.Status
+                                        </span>
+                                    </td>
+                                    <td class="fw-bold">₵@o.Price.ToString("N0")</td>
+                                    <td>
+                                        <span class="@(o.DueDate < DateTime.UtcNow && o.Status != OrderStatus.Delivered && o.Status != OrderStatus.Completed ? "text-danger fw-bold" : "text-secondary")">
+                                            <i class="bi bi-calendar-event me-1"></i>
+                                            @(o.DueDate?.ToString("dd MMM yyyy") ?? "—")
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            @if (o.Status == OrderStatus.Pending)
+                                            {
+                                                <button type="button" class="btn btn-outline-info text-xs" @onclick="() => UpdateStatus(o, OrderStatus.InProgress)" title="Move to In Progress">
+                                                    Start Work
+                                                </button>
+                                            }
+                                            @if (o.Status == OrderStatus.InProgress)
+                                            {
+                                                <button type="button" class="btn btn-outline-success text-xs" @onclick="() => UpdateStatus(o, OrderStatus.Completed)" title="Mark as Completed">
+                                                    Complete
+                                                </button>
+                                            }
+                                            @if (o.Status == OrderStatus.Completed)
+                                            {
+                                                <button type="button" class="btn btn-outline-secondary text-xs" @onclick="() => UpdateStatus(o, OrderStatus.Delivered)" title="Mark as Delivered">
+                                                    Deliver
+                                                </button>
+                                            }
+                                            @if (o.Status == OrderStatus.Delivered)
+                                            {
+                                                <span class="text-muted text-xs"><i class="bi bi-check-all text-success"></i> Order Finalized</span>
+                                            }
+                                            @if (o.Status != OrderStatus.Pending && o.Status != OrderStatus.Delivered)
+                                            {
+                                                <!-- Rollback option -->
+                                                <button type="button" class="btn btn-link btn-sm text-secondary text-decoration-none ms-1" style="font-size: 0.75rem;" @onclick="() => RollbackStatus(o)" title="Undo status step">
+                                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                                </button>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <a href="/orders/edit/@o.Id" class="btn btn-sm btn-outline-secondary me-1" title="Edit Order Details">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-danger" @onclick="() => Delete(o.Id)" title="Delete Order">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 </div>
-
-@if (orders == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <table class="table table-hover">
-        <thead>
-            <tr><th>Customer</th><th>Description</th><th>Status</th><th>Price</th><th>Due</th><th></th></tr>
-        </thead>
-        <tbody>
-            @foreach (var o in orders)
-            {
-                <tr>
-                    <td>@o.Customer.FullName</td>
-                    <td>@o.Description</td>
-                    <td><span class="badge @BadgeClass(o.Status)">@o.Status</span></td>
-                    <td>R @o.Price.ToString("N2")</td>
-                    <td>@(o.DueDate?.ToString("dd MMM yyyy") ?? "—")</td>
-                    <td>
-                        <a href="/orders/edit/@o.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
-                        <button class="btn btn-sm btn-outline-danger"
-                                @onclick="() => Delete(o.Id)">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
 @code {
     private List<Order>? orders;
+    private OrderStatus? currentFilter = null;
+
+    private List<Order> FilteredOrders => currentFilter == null 
+        ? orders ?? new() 
+        : (orders ?? new()).Where(o => o.Status == currentFilter).ToList();
 
     protected override async Task OnInitializedAsync() =>
         orders = await OrderSvc.GetAllAsync();
+
+    private void FilterByStatus(OrderStatus? status)
+    {
+        currentFilter = status;
+    }
+
+    private async Task UpdateStatus(Order order, OrderStatus newStatus)
+    {
+        order.Status = newStatus;
+        await OrderSvc.UpdateAsync(order);
+        orders = await OrderSvc.GetAllAsync(); // Refresh list
+    }
+
+    private async Task RollbackStatus(Order order)
+    {
+        var prevStatus = order.Status switch
+        {
+            OrderStatus.InProgress => OrderStatus.Pending,
+            OrderStatus.Completed  => OrderStatus.InProgress,
+            OrderStatus.Delivered  => OrderStatus.Completed,
+            _                      => order.Status
+        };
+        
+        await UpdateStatus(order, prevStatus);
+    }
 
     private async Task Delete(int id)
     {
@@ -55,10 +256,41 @@ else
 
     private string BadgeClass(OrderStatus status) => status switch
     {
-        OrderStatus.Pending    => "bg-warning text-dark",
-        OrderStatus.InProgress => "bg-info text-dark",
-        OrderStatus.Completed  => "bg-success",
-        OrderStatus.Delivered  => "bg-secondary",
-        _                      => "bg-light text-dark"
+        OrderStatus.Pending    => "bg-warning text-dark border border-warning",
+        OrderStatus.InProgress => "bg-info text-dark border border-info",
+        OrderStatus.Completed  => "bg-success text-white border border-success",
+        OrderStatus.Delivered  => "bg-secondary text-white border border-secondary",
+        _                      => "bg-light text-dark border"
+    };
+
+    private string StatusIcon(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending    => "bi bi-hourglass-split",
+        OrderStatus.InProgress => "bi bi-gear-wide-connected spin-icon",
+        OrderStatus.Completed  => "bi bi-check-circle",
+        OrderStatus.Delivered  => "bi bi-truck",
+        _                      => "bi bi-question-circle"
     };
 }
+
+<style>
+    .bg-warning-light { background-color: #fefbeb; }
+    .bg-info-light { background-color: #f0f9ff; }
+    .bg-success-light { background-color: #f0fdf4; }
+    
+    .text-xs {
+        font-size: 0.75rem !important;
+        padding: 0.2rem 0.5rem;
+    }
+
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .spin-icon {
+        display: inline-block;
+    }
+    tr:hover .spin-icon {
+        animation: spin 3s linear infinite;
+    }
+</style>

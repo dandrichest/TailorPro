@@ -1,0 +1,242 @@
+@using TailorPro.Data
+@using TailorPro.Services
+@inject CartService CartService
+
+<div class="service-card" @onclick="OpenDetails" role="button" tabindex="0">
+    <div class="card-visual" style="background:@ServiceItem.BgColor">
+        @if (!string.IsNullOrWhiteSpace(ServiceItem.ImageUrl))
+        {
+            <img src="@ServiceItem.ImageUrl" alt="@ServiceItem.Name" class="card-photo" />
+        }
+        else
+        {
+            <div class="card-shape">@((MarkupString)ServiceItem.Icon)</div>
+        }
+        <span class="card-badge">@ServiceItem.Category</span>
+    </div>
+
+    <div class="card-body">
+        <h3>@ServiceItem.Name</h3>
+        <p>@ServiceItem.Description</p>
+
+        <div class="card-meta">
+            <span>⏱ @ServiceItem.Duration</span>
+        </div>
+
+        <div class="card-footer">
+            <span class="price">₵@ServiceItem.Price.ToString("N0")</span>
+            <button class="btn-cart"
+                    @onclick="HandleAddToCart"
+                    @onclick:stopPropagation="true">
+                Add to cart
+            </button>
+        </div>
+    </div>
+</div>
+
+@if (_showDetails)
+{
+    <div class="modal-backdrop" @onclick="CloseDetails"></div>
+    <div class="modal-panel" @onclick:stopPropagation="true">
+        <button class="modal-close" @onclick="CloseDetails">×</button>
+
+        @if (!string.IsNullOrWhiteSpace(ServiceItem.ImageUrl))
+        {
+            <img src="@ServiceItem.ImageUrl" alt="@ServiceItem.Name" class="modal-photo" />
+        }
+
+        <div class="modal-body">
+            <span class="card-badge">@ServiceItem.Category</span>
+            <h2>@ServiceItem.Name</h2>
+            <p>@ServiceItem.Description</p>
+            <p><strong>Duration:</strong> @ServiceItem.Duration</p>
+            <p><strong>Price:</strong> ₵@ServiceItem.Price.ToString("N0")</p>
+
+            <button class="btn-cart" @onclick="HandleAddToCart">Add to cart</button>
+        </div>
+    </div>
+}
+
+<style>
+    .service-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    }
+
+    .card-visual {
+        position: relative;
+        height: 160px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: rgba(255,255,255,0.88);
+        color: #2D5016;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .card-body {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.5rem;
+    }
+
+    .card-body h3 {
+        margin: 0;
+        font-size: 0.97rem;
+        font-weight: 700;
+        color: #1a2410;
+    }
+
+    .card-body p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #777;
+        line-height: 1.5;
+    }
+
+    .card-meta {
+        font-size: 0.75rem;
+        color: #aaa;
+    }
+
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #f0f2eb;
+        padding-top: 0.75rem;
+        margin-top: auto;
+    }
+
+    .price {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #2D5016;
+    }
+
+    .btn-cart {
+        background: #2D5016;
+        color: #fff;
+        border: none;
+        padding: 0.42rem 0.85rem;
+        border-radius: 7px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+
+    .btn-cart:hover {
+        background: #3d6b1e;
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.55);
+        z-index: 1000;
+    }
+
+    .modal-panel {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(520px, 92vw);
+        max-height: 90vh;
+        overflow: auto;
+        background: #fff;
+        border-radius: 16px;
+        z-index: 1001;
+        box-shadow: 0 24px 60px rgba(0,0,0,.25);
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 14px;
+        background: none;
+        border: 0;
+        font-size: 26px;
+        cursor: pointer;
+        line-height: 1;
+        color: #333;
+    }
+
+    .modal-photo {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 16px 16px 0 0;
+        display: block;
+    }
+
+    .modal-body {
+        padding: 20px 22px 24px;
+    }
+
+    .modal-body h2 {
+        margin: 8px 0 12px;
+        color: #1a2410;
+    }
+
+    .modal-body p {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.6;
+        margin: 0 0 8px;
+    }
+</style>
+
+@code {
+    [Parameter] public ServiceItem ServiceItem { get; set; } = default!;
+    [Parameter] public EventCallback<ServiceItem> AddToCart { get; set; }
+
+    private bool _showDetails;
+    private CancellationTokenSource? _toastCts;
+
+    private void OpenDetails() => _showDetails = true;
+    private void CloseDetails() => _showDetails = false;
+
+    private async Task HandleAddToCart()
+    {
+        CartService.AddToCart(ServiceItem);
+
+        if (AddToCart.HasDelegate)
+            await AddToCart.InvokeAsync(ServiceItem);
+
+        _showDetails = false;
+    }
+}

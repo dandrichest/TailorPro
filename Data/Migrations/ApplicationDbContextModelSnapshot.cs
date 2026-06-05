@@ -252,6 +252,7 @@ namespace TailorPro.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -275,6 +276,7 @@ namespace TailorPro.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Notes")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<double>("ShoulderWidth")
@@ -313,7 +315,7 @@ namespace TailorPro.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("OrderDate")
