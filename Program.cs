@@ -4,8 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using TailorPro.Components;
 using TailorPro.Components.Account;
 using TailorPro.Data;
+using TailorPro.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+// ✅ ADD THIS SECTION
+builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<MeasurementService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
