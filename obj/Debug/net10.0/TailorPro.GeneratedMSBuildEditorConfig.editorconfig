@@ -262,22 +262,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/Components/Account/Pages/Login.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xMb2dpbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/Components/Account/Pages/Register.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcQWNjb3VudFxQYWdlc1xSZWdpc3Rlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/Components/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcTGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/Components/Pages/Home.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcUGFnZXNcSG9tZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-41458uyygk
@@ -289,7 +273,3 @@ build_metadata.AdditionalFiles.CssScope = b-081y7df3hw
 [C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-v92hsqazc2
-
-[C:/Users/DANIEL/Documents/CSE325/TailorPro_Team_13/TailorPro/Components/Layout/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = VGFpbG9yUHJvXENvbXBvbmVudHNcTGF5b3V0XE5hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-d30ggfbwxb
