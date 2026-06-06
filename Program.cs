@@ -15,6 +15,7 @@ builder.Services.AddScoped<CartService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<MeasurementService>();
+builder.Services.AddScoped<DashboardService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

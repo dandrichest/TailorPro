@@ -1,6 +1,49 @@
+@implements IAsyncDisposable
+
 @page "/cart"
-<h1>MY Cart</h1>
+@using TailorPro.Data
+@inject TailorPro.Services.CartService CartService
 
-@{
+<h3 class="mb-4">🛒 My Cart</h3>
 
+@if (items.Count == 0)
+{
+    <div class="text-center mt-5">
+        <h4>Your cart is empty</h4>
+        <p>Add services to see them here</p>
+    </div>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var item in items)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span>@item.Name</span>
+                <span>₦ @item.Price</span>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<ServiceItem> items = new();
+
+    protected override void OnInitialized()
+    {
+        items = CartService.GetItems();
+        CartService.OnCartChanged += OnCartChanged;
+    }
+
+    private void OnCartChanged()
+    {
+        items = CartService.GetItems();
+        StateHasChanged();
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        CartService.OnCartChanged -= OnCartChanged;
+        await ValueTask.CompletedTask;
+    }
 }

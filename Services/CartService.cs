@@ -1,46 +1,38 @@
 using TailorPro.Data;
 
-namespace TailorPro.Services;
-
-public class CartItem
+namespace TailorPro.Services
 {
-    public ServiceItem Service { get; set; } = default!;
-    public int Quantity { get; set; } = 1;
-}
-
-public class CartService
-{
-    private readonly List<CartItem> _items = new();
-
-    public IReadOnlyList<CartItem> Items => _items.AsReadOnly();
-    public int Count => _items.Sum(i => i.Quantity);
-    public decimal Total => _items.Sum(i => i.Service.Price * i.Quantity);
-
-    public event Action? OnChange;
-
-    public void AddToCart(ServiceItem service)
+    public class CartService
     {
-        var existing = _items.FirstOrDefault(i => i.Service.Id == service.Id);
-        if (existing is not null)
-            existing.Quantity++;
-        else
-            _items.Add(new CartItem { Service = service });
+        private List<ServiceItem> _items = new();
 
-        OnChange?.Invoke();
-    }
+        // Event to notify when cart changes
+        public event Action? OnCartChanged;
 
-    public void RemoveFromCart(int serviceId)
-    {
-        var item = _items.FirstOrDefault(i => i.Service.Id == serviceId);
-        if (item is not null)
-            _items.Remove(item);
+        // ✅ Add to cart
+        public void AddToCart(ServiceItem item)
+        {
+            _items.Add(item);
+            OnCartChanged?.Invoke();
+        }
 
-        OnChange?.Invoke();
-    }
+        // ✅ Get items
+        public List<ServiceItem> GetItems()
+        {
+            return _items;
+        }
 
-    public void Clear()
-    {
-        _items.Clear();
-        OnChange?.Invoke();
+        // ✅ Count
+        public int GetCount()
+        {
+            return _items.Count;
+        }
+
+        // ✅ Clear
+        public void ClearCart()
+        {
+            _items.Clear();
+            OnCartChanged?.Invoke();
+        }
     }
 }

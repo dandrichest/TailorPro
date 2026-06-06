@@ -960,7 +960,6 @@ C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\scopedcss\C
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\scopedcss\Components\Pages\Home.razor.rz.scp.css
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\scopedcss\bundle\TailorPro.styles.css
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\scopedcss\projectbundle\TailorPro.bundle.scp.css
-C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\0a64whe88x-{0}-0gtvyagftd-0gtvyagftd.gz
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\ker3k1tu47-{0}-igl1631tns-igl1631tns.gz
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\3je4na6kit-{0}-fozgzt4kwd-fozgzt4kwd.gz
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\3rwgdjh8a7-{0}-c2jlpeoesf-c2jlpeoesf.gz
@@ -1033,3 +1032,5 @@ C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\bin\Debug\net10.0\TailorPro.p
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\TailorPro.csproj.Up2Date
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\TailorPro.genruntimeconfig.cache
 C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\ref\TailorPro.dll
+C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\61c7gn4jjz-{0}-rf2if36lpe-rf2if36lpe.gz
+C:\Users\DANIEL\Documents\CSE325\TailorPro_Team_13\obj\Debug\net10.0\compressed\0a64whe88x-{0}-uz2tqtdodm-uz2tqtdodm.gz

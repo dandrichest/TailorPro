@@ -1,6 +1,8 @@
 @using TailorPro.Data
 @using TailorPro.Services
 @inject CartService CartService
+@inject NavigationManager Navigation
+
 
 <div class="service-card" @onclick="OpenDetails" role="button" tabindex="0">
     <div class="card-visual" style="background:@ServiceItem.BgColor">
@@ -25,11 +27,12 @@
 
         <div class="card-footer">
             <span class="price">₵@ServiceItem.Price.ToString("N0")</span>
-            <button class="btn-cart"
-                    @onclick="HandleAddToCart"
-                    @onclick:stopPropagation="true">
-                Add to cart
-            </button>
+ <button class="btn-cart"
+        @onclick:stopPropagation="true"
+        @onclick="HandleAddToCart">
+    Add to Cart
+</button>
+
         </div>
     </div>
 </div>
@@ -245,5 +248,6 @@
             await AddToCart.InvokeAsync(ServiceItem);
 
         _showDetails = false;
+        Navigation.NavigateTo("/cart");
     }
 }
