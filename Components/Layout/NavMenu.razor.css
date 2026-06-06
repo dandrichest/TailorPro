@@ -1,0 +1,74 @@
+    .tailorpro-navbar {
+        background: #ffffff;
+        border-bottom: 1px solid #eef0eb;
+        padding: 0.75rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .brand-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-text {
+        font-size: 1.2rem;
+        color: #1a2410;
+        letter-spacing: -0.02em;
+    }
+
+    .brand-accent {
+        color: #4a8a1e;
+    }
+
+    .nav-text-link {
+        color: #3d3d3d !important;
+        font-size: 0.92rem;
+        font-weight: 500;
+        padding: 0.4rem 0.75rem !important;
+        border-radius: 6px;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-text-link:hover,
+    .nav-text-link.active {
+        color: #2D5016 !important;
+        background: #f0f5e8;
+    }
+
+    .btn-outline-brand {
+        border: 1.5px solid #2D5016;
+        color: #2D5016;
+        background: transparent;
+        padding: 0.4rem 1.1rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-outline-brand:hover {
+        background: #f0f5e8;
+        color: #2D5016;
+    }
+
+    .btn-brand {
+        background: #2D5016;
+        color: #ffffff;
+        border: none;
+        padding: 0.4rem 1.2rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s;
+    }
+
+    .btn-brand:hover {
+        background: #3d6b1e;
+        color: #ffffff;
+    }
