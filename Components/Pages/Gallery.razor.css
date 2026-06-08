@@ -1,0 +1,34 @@
+    .gallery-card {
+        border: 1px solid rgba(45, 80, 22, 0.12);
+        border-radius: 18px;
+        overflow: hidden;
+        background: #ffffff;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .gallery-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 22px 35px rgba(33, 60, 22, 0.08);
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .gallery-caption {
+        padding: 1rem;
+    }
+
+    .gallery-caption h4 {
+        font-size: 1rem;
+        margin-bottom: 0.35rem;
+    }
+
+    @media (max-width: 576px) {
+        .gallery-image {
+            height: 190px;
+        }
+    }
