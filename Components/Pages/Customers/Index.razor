@@ -14,108 +14,112 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <div>
             <h2 class="fw-bold text-dark mb-1"><i class="bi bi-people-fill me-2"></i>Customers Directory</h2>
-            <p class="text-muted small mb-0">Manage customer records, profile histories, contact info, and body measurements.</p>
-        </div>
-        <div class="mt-3 mt-sm-0">
-            <a href="/customers/add" class="btn text-white px-4 shadow-sm" style="background-color: #2D5016;">+ Add New Customer</a>
-        </div>
-    </div>
-
-    @if (customers == null)
-    {
-        <div class="text-center py-5">
-            <div class="spinner-border text-success" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <p class="text-muted small mb-0">Manage customer records, profile histories, contact info, and body
+                measurements.</p>
             </div>
-        </div>
-    }
-    else
-    {
-        <!-- Search & Info Bar -->
-        <div class="row mb-3 g-3">
-            <div class="col-md-8">
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-end-0 text-muted">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <input class="form-control border-start-0 ps-0" placeholder="Search by name, phone number, or email..."
-                           @bind="search" @bind:event="oninput" />
+            <div class="mt-3 mt-sm-0">
+                <a href="/customers/add" class="btn text-white px-4 shadow-sm" style="background-color: #2D5016;">+ Add New
+                    Customer</a>
                 </div>
             </div>
-            <div class="col-md-4 text-md-end d-flex align-items-center justify-content-md-end text-muted small">
-                Total Registered: <span class="fw-bold text-dark ms-1">@customers.Count</span>
-            </div>
-        </div>
 
-        <!-- Customers Table -->
-        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light text-uppercase text-secondary small fw-bold">
-                        <tr>
-                            <th class="ps-4">Full Name</th>
-                            <th>Phone Number</th>
-                            <th>Email Address</th>
-                            <th>Active Orders</th>
-                            <th class="text-end pe-4">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="small">
-                        @if (!FilteredCustomers.Any())
-                        {
-                            <tr>
-                                <td colspan="5" class="text-center py-5 text-muted">
-                                    <div class="mb-2"><i class="bi bi-person-x fs-1 text-muted"></i></div>
-                                    No customers found matching "@search".
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            @foreach (var c in FilteredCustomers)
-                            {
+            @if (customers == null)
+            {
+                <div class="text-center py-5">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Search & Info Bar -->
+                <div class="row mb-3 g-3">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0 text-muted">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input class="form-control border-start-0 ps-0" placeholder="Search by name, phone number, or email..."
+                                   @bind="search" @bind:event="oninput" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end d-flex align-items-center justify-content-md-end text-muted small">
+                        Total Registered: <span class="fw-bold text-dark ms-1">@customers.Count</span>
+                    </div>
+                </div>
+
+                <!-- Customers Table -->
+                <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light text-uppercase text-secondary small fw-bold">
                                 <tr>
-                                    <td class="ps-4 fw-bold text-dark">
-                                        <a href="/customers/@c.Id" class="text-decoration-none text-dark d-flex align-items-center">
-                                            <div class="avatar-circle me-2">@c.FullName.Substring(0, 1).ToUpper()</div>
-                                            @c.FullName
-                                        </a>
-                                    </td>
-                                    <td class="fw-semibold text-secondary">@c.PhoneNumber</td>
-                                    <td>@(string.IsNullOrEmpty(c.Email) ? "—" : c.Email)</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-light text-dark border px-3 py-1.5 fw-semibold">
-                                            @c.Orders.Count Orders
-                                        </span>
-                                    </td>
-                                    <td class="text-end pe-4">
-                                        <a href="/customers/@c.Id" class="btn btn-sm btn-outline-success me-1" title="View Profile">
-                                            <i class="bi bi-eye-fill"></i> View
-                                        </a>
-                                        <a href="/customers/edit/@c.Id" class="btn btn-sm btn-outline-secondary me-1" title="Edit Customer">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-outline-danger" @onclick="() => Delete(c.Id)" title="Delete Customer">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </td>
+                                    <th class="ps-4">Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email Address</th>
+                                    <th>Active Orders</th>
+                                    <th class="text-end pe-4">Actions</th>
                                 </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+                            </thead>
+                            <tbody class="small">
+                                @if (!FilteredCustomers.Any())
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5 text-muted">
+                                            <div class="mb-2"><i class="bi bi-person-x fs-1 text-muted"></i></div>
+                                            No customers found matching "@search".
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var c in FilteredCustomers)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-bold text-dark">
+                                                <a href="/customers/@c.Id" class="text-decoration-none text-dark d-flex align-items-center">
+                                                    <div class="avatar-circle me-2">@c.FullName.Substring(0, 1).ToUpper()</div>
+                                                    @c.FullName
+                                                </a>
+                                            </td>
+                                            <td class="fw-semibold text-secondary">@c.PhoneNumber</td>
+                                            <td>@(string.IsNullOrEmpty(c.Email) ? "—" : c.Email)</td>
+                                            <td>
+                                                <span class="badge rounded-pill bg-light text-dark border px-3 py-1.5 fw-semibold">
+                                                    @c.Orders.Count Orders
+                                                </span>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <a href="/customers/@c.Id" class="btn btn-sm btn-outline-success me-1" title="View Profile">
+                                                    <i class="bi bi-eye-fill"></i> View
+                                                </a>
+                                                <a href="/customers/edit/@c.Id" class="btn btn-sm btn-outline-secondary me-1"
+                                                   title="Edit Customer">
+                                                    <i class="bi bi-pencil-square">Edit</i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger" @onclick="() => Delete(c.Id)"
+                                                        title="Delete Customer">
+                                                    <i class="bi bi-trash-fill">Delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
         </div>
-    }
-</div>
 
 @code {
     private List<Customer>? customers;
     private string search = string.Empty;
 
     private IEnumerable<Customer> FilteredCustomers =>
-        customers?.Where(c => c.FullName.Contains(search, StringComparison.OrdinalIgnoreCase) || 
-                             (c.PhoneNumber != null && c.PhoneNumber.Contains(search)) || 
+        customers?.Where(c => c.FullName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                             (c.PhoneNumber != null && c.PhoneNumber.Contains(search)) ||
                              (c.Email != null && c.Email.Contains(search, StringComparison.OrdinalIgnoreCase)))
         ?? Enumerable.Empty<Customer>();
 

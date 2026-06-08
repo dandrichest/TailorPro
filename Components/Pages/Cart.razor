@@ -4,17 +4,19 @@
 @using TailorPro.Data
 @inject TailorPro.Services.CartService CartService
 
-<h3 class="mb-4">🛒 My Cart</h3>
 
 @if (items.Count == 0)
 {
     <div class="text-center mt-5">
         <h4>Your cart is empty</h4>
         <p>Add services to see them here</p>
+        <h3 class="my-4">🛒 @CartHeading (@items.Count)</h3>
+
     </div>
 }
 else
 {
+    <h3 class="my-4">🛒 @CartHeading (@items.Count)</h3>
     <ul class="list-group">
         @foreach (var item in items)
         {
@@ -27,6 +29,7 @@ else
 }
 
 @code {
+    string CartHeading = "My Cart";
     private List<ServiceItem> items = new();
 
     protected override void OnInitialized()
