@@ -1,4 +1,40 @@
+# Build folders
 bin/
 obj/
+
+# Rider / VS Code / Visual Studio
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Database files
 *.db
+
+# Executables
 *.exe
+
+# Logs and temporary files
+*.log
+*.cache
+*.tmp
+*.temp
+
+# Publish output
+publish/
+
+# Sensitive / local settings
+appsettings.Development.json
+.env
+*.env
+
+# NuGet packages
+*.nupkg
+packages/

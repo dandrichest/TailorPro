@@ -1,0 +1,947 @@
+@page "/payment"
+
+<div class="tp-shell">
+
+    <header class="tp-topbar">
+        <div class="tp-topbar__brand">
+            <span class="tp-topbar__logo-mark">✦</span>
+            <span class="tp-topbar__app-name">TailorPro</span>
+        </div>
+        <div class="tp-topbar__meta">
+            <span class="tp-topbar__date">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</span>
+        </div>
+    </header>
+
+    <div class="tp-content">
+
+        @* Page Header *@
+        <div class="tp-page-header">
+            <div>
+                <p class="tp-page-header__eyebrow">Finance</p>
+                <h1 class="tp-page-header__title">Payments</h1>
+            </div>
+            <button class="tp-btn tp-btn--primary" disabled>
+                <span>＋</span> Record Payment
+            </button>
+        </div>
+
+        @* Summary KPI Strip *@
+        <div class="tp-pay-kpis">
+            <div class="tp-pay-kpi">
+                <p class="tp-pay-kpi__label">Total Collected</p>
+                <p class="tp-pay-kpi__value">₦4,820,000</p>
+                <p class="tp-pay-kpi__sub">All time</p>
+            </div>
+            <div class="tp-pay-kpi">
+                <p class="tp-pay-kpi__label">This Month</p>
+                <p class="tp-pay-kpi__value">₦630,500</p>
+                <p class="tp-pay-kpi__sub">June 2026</p>
+            </div>
+            <div class="tp-pay-kpi">
+                <p class="tp-pay-kpi__label">Outstanding</p>
+                <p class="tp-pay-kpi__value tp-pay-kpi__value--warn">₦185,000</p>
+                <p class="tp-pay-kpi__sub">3 invoices unpaid</p>
+            </div>
+            <div class="tp-pay-kpi">
+                <p class="tp-pay-kpi__label">Avg. Order Value</p>
+                <p class="tp-pay-kpi__value">₦42,400</p>
+                <p class="tp-pay-kpi__sub">Based on 114 orders</p>
+            </div>
+        </div>
+
+        <div class="tp-pay-workspace">
+
+            @* Transaction Table *@
+            <div class="tp-panel tp-panel--grow">
+
+                <div class="tp-panel__head">
+                    <h2 class="tp-panel__title">Transaction History</h2>
+                    <div class="tp-filter-row">
+                        <span class="tp-filter-chip tp-filter-chip--active">All</span>
+                        <span class="tp-filter-chip">Paid</span>
+                        <span class="tp-filter-chip">Partial</span>
+                        <span class="tp-filter-chip">Unpaid</span>
+                    </div>
+                </div>
+
+                <div class="tp-table-wrap">
+                    <table class="tp-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Client</th>
+                                <th>Date</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th class="tp-table__amt">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var txn in Transactions)
+                            {
+                                <tr>
+                                    <td class="tp-table__id">#@txn.OrderId</td>
+                                    <td class="tp-table__customer">@txn.ClientName</td>
+                                    <td class="tp-table__date">@txn.Date</td>
+                                    <td>
+                                        <span class="tp-method tp-method--@txn.Method.ToLower().Replace(" ", "")">
+                                            @txn.Method
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="tp-badge tp-badge--@txn.StatusClass">
+                                            @txn.Status
+                                        </span>
+                                    </td>
+                                    <td class="tp-table__amt">₦@txn.Amount.ToString("N0")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tp-table-footer">
+                    <span class="tp-table-footer__count">Showing @Transactions.Count transactions</span>
+                    <div class="tp-pagination">
+                        <button class="tp-page-btn" disabled>←</button>
+                        <span class="tp-page-btn tp-page-btn--active">1</span>
+                        <button class="tp-page-btn">2</button>
+                        <button class="tp-page-btn">3</button>
+                        <button class="tp-page-btn">→</button>
+                    </div>
+                </div>
+                <p class="caution">This payment and transactions are just placeholders not real data</p>
+            </div>
+
+            @* RIGHT SIDEBAR *@
+            <div class="tp-pay-sidebar">
+
+                @* Record Payment Form Stub *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Record Payment</h2>
+                        <span class="tp-coming-soon">Coming soon</span>
+                    </div>
+                    <div class="tp-form-stub">
+                        <div class="tp-field">
+                            <label class="tp-field__label">Order ID</label>
+                            <input class="tp-field__input" type="text" placeholder="#0042" disabled />
+                        </div>
+                        <div class="tp-field">
+                            <label class="tp-field__label">Client Name</label>
+                            <input class="tp-field__input" type="text" placeholder="Search client…" disabled />
+                        </div>
+                        <div class="tp-field">
+                            <label class="tp-field__label">Amount (₦)</label>
+                            <input class="tp-field__input" type="number" placeholder="0.00" disabled />
+                        </div>
+                        <div class="tp-field">
+                            <label class="tp-field__label">Payment Method</label>
+                            <select class="tp-field__input" disabled>
+                                <option>Bank Transfer</option>
+                                <option>Cash</option>
+                                <option>POS</option>
+                            </select>
+                        </div>
+                        <button class="tp-btn tp-btn--primary tp-btn--full" disabled>
+                            Save Payment
+                        </button>
+                    </div>
+                </div>
+
+                @* Unpaid Invoices *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Unpaid Invoices</h2>
+                        <span class="tp-panel__badge-count tp-panel__badge-count--warn">3</span>
+                    </div>
+                    <ul class="tp-invoice-list">
+                        @foreach (var inv in UnpaidInvoices)
+                        {
+                            <li class="tp-invoice-item">
+                                <div class="tp-invoice-item__left">
+                                    <span class="tp-invoice-item__id">#@inv.OrderId</span>
+                                    <span class="tp-invoice-item__client">@inv.ClientName</span>
+                                </div>
+                                <div class="tp-invoice-item__right">
+                                    <span class="tp-invoice-item__amount">₦@inv.Amount.ToString("N0")</span>
+                                    <span class="tp-invoice-item__due">Due @inv.DueDate</span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                @* Payment Method Breakdown *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">By Method</h2>
+                    </div>
+                    <ul class="tp-method-breakdown">
+                        <li class="tp-method-row">
+                            <span class="tp-method-row__label">Bank Transfer</span>
+                            <div class="tp-method-row__bar-wrap">
+                                <div class="tp-method-row__bar" style="width:62%"></div>
+                            </div>
+                            <span class="tp-method-row__pct">62%</span>
+                        </li>
+                        <li class="tp-method-row">
+                            <span class="tp-method-row__label">Cash</span>
+                            <div class="tp-method-row__bar-wrap">
+                                <div class="tp-method-row__bar tp-method-row__bar--b" style="width:28%"></div>
+                            </div>
+                            <span class="tp-method-row__pct">28%</span>
+                        </li>
+                        <li class="tp-method-row">
+                            <span class="tp-method-row__label">POS</span>
+                            <div class="tp-method-row__bar-wrap">
+                                <div class="tp-method-row__bar tp-method-row__bar--c" style="width:10%"></div>
+                            </div>
+                            <span class="tp-method-row__pct">10%</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ── Design Tokens (mirrors dashboard) ─────────── */
+    :root {
+        --tp-green-deep: #2D5016;
+        --tp-green-mid: #4A7C20;
+        --tp-green-light: #A8D45A;
+        --tp-green-pale: #EBF5D6;
+        --tp-ink: #1A1A18;
+        --tp-ink-muted: #5A5A54;
+        --tp-ink-faint: #9A9A90;
+        --tp-canvas: #F4F3EE;
+        --tp-surface: #FAFAF7;
+        --tp-border: #E2E0D8;
+        --tp-border-light: #EDECEA;
+
+        --tp-status-pending-bg: #FFFBEB;
+        --tp-status-pending: #D97706;
+        --tp-status-completed-bg: #F0FDF4;
+        --tp-status-completed: #16A34A;
+        --tp-status-partial-bg: #EFF6FF;
+        --tp-status-partial: #2563EB;
+        --tp-status-unpaid-bg: #FEF2F2;
+        --tp-status-unpaid: #DC2626;
+
+        --tp-radius-sm: 8px;
+        --tp-radius-md: 12px;
+        --tp-radius-lg: 18px;
+        --tp-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+        --tp-shadow-md: 0 4px 18px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    /* ── Base ──────────────────────────────────────── */
+    .tp-shell * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tp-shell {
+        font-family: sans-serif;
+        background: var(--tp-canvas);
+        min-height: 100vh;
+        color: var(--tp-ink);
+    }
+
+    .tp-shell h1,
+    .tp-shell h2 {
+        font-family: sans-serif;
+    }
+
+    /* ── Topbar ────────────────────────────────────── */
+    .tp-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 32px;
+        background: var(--tp-green-deep);
+        border-bottom: 1px solid rgba(168, 212, 90, 0.18);
+    }
+
+    .tp-topbar__brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tp-topbar__logo-mark {
+        color: var(--tp-green-light);
+        font-size: 1.25rem;
+    }
+
+    .tp-topbar__app-name {
+        font-family: sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #fff;
+    }
+
+    .tp-topbar__date {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    /* ── Content ───────────────────────────────────── */
+    .tp-content {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 32px 32px 64px;
+    }
+
+    /* ── Page Header ───────────────────────────────── */
+    .tp-page-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 28px;
+    }
+
+    .tp-page-header__eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--tp-green-mid);
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .tp-page-header__title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--tp-ink);
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+
+    /* ── Buttons ───────────────────────────────────── */
+    .tp-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: var(--tp-radius-sm);
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s, transform 0.15s;
+        text-decoration: none;
+    }
+
+    .tp-btn--primary {
+        background: var(--tp-green-deep);
+        color: #fff;
+    }
+
+    .tp-btn--primary:hover:not(:disabled) {
+        background: var(--tp-green-mid);
+        transform: translateY(-1px);
+    }
+
+    .tp-btn--primary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    .tp-btn--full {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ── KPI Strip ─────────────────────────────────── */
+    .tp-pay-kpis {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .tp-pay-kpi {
+        background: var(--tp-surface);
+        border: 1px solid var(--tp-border);
+        border-radius: var(--tp-radius-md);
+        padding: 20px 22px;
+        box-shadow: var(--tp-shadow-sm);
+        position: relative;
+        overflow: hidden;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .tp-pay-kpi:hover {
+        box-shadow: var(--tp-shadow-md);
+        transform: translateY(-2px);
+    }
+
+    .tp-pay-kpi::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 16px;
+        bottom: 16px;
+        width: 3px;
+        border-radius: 0 3px 3px 0;
+        background: var(--tp-green-light);
+    }
+
+    .tp-pay-kpi__label {
+
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+        margin-bottom: 6px;
+    }
+
+    .tp-pay-kpi__value {
+        font-family: sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--tp-ink);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 4px;
+    }
+
+    .tp-pay-kpi__value--warn {
+        color: #DC2626;
+    }
+
+    .tp-pay-kpi__sub {
+        font-size: 0.72rem;
+        color: var(--tp-ink-faint);
+    }
+
+    /* ── Workspace Split ───────────────────────────── */
+    .tp-pay-workspace {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .tp-pay-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* ── Panel ─────────────────────────────────────── */
+    .tp-panel {
+        background: var(--tp-surface);
+        border: 1px solid var(--tp-border);
+        border-radius: var(--tp-radius-md);
+        padding: 24px;
+        box-shadow: var(--tp-shadow-sm);
+    }
+
+    .tp-panel--grow {
+        flex: 1;
+    }
+
+    .tp-panel__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--tp-border-light);
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .tp-panel__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--tp-ink);
+        letter-spacing: -0.01em;
+    }
+
+    .tp-panel__badge-count {
+        min-width: 22px;
+        height: 22px;
+        background: #FEF2F2;
+        color: #DC2626;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 6px;
+    }
+
+    .tp-panel__badge-count--warn {
+        background: #FEF2F2;
+        color: #DC2626;
+    }
+
+    .tp-coming-soon {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+        background: var(--tp-border-light);
+        padding: 3px 8px;
+        border-radius: 100px;
+    }
+
+    /* ── Filter Chips ──────────────────────────────── */
+    .tp-filter-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .tp-filter-chip {
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border: 1px solid var(--tp-border);
+        color: var(--tp-ink-muted);
+        cursor: pointer;
+        transition: all 0.15s;
+        user-select: none;
+    }
+
+    .tp-filter-chip--active {
+        background: var(--tp-green-deep);
+        border-color: var(--tp-green-deep);
+        color: #fff;
+    }
+
+    .tp-filter-chip:hover:not(.tp-filter-chip--active) {
+        border-color: var(--tp-green-light);
+        color: var(--tp-green-deep);
+    }
+
+    /* ── Table ─────────────────────────────────────── */
+    .tp-table-wrap {
+        overflow-x: auto;
+    }
+
+    .tp-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.86rem;
+    }
+
+    .tp-table thead tr {
+        border-bottom: 1px solid var(--tp-border);
+    }
+
+    .tp-table th {
+        padding: 0 12px 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .tp-table td {
+        padding: 13px 12px;
+        border-bottom: 1px solid var(--tp-border-light);
+        color: var(--tp-ink);
+        vertical-align: middle;
+    }
+
+    .tp-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .tp-table tbody tr:hover td {
+        background: var(--tp-canvas);
+    }
+
+    .tp-table__id {
+        font-family: 'Courier New', monospace;
+        font-size: 0.78rem;
+        color: var(--tp-ink-faint);
+    }
+
+    .tp-table__customer {
+        font-weight: 500;
+    }
+
+    .tp-table__date {
+        color: var(--tp-ink-muted);
+        font-size: 0.82rem;
+    }
+
+    .tp-table__amt {
+        text-align: right;
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--tp-green-deep);
+        font-family: 'Georgia', serif;
+    }
+
+    /* ── Payment Method Tags ───────────────────────── */
+    .tp-method {
+        display: inline-flex;
+        padding: 2px 8px;
+        border-radius: var(--tp-radius-sm);
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: var(--tp-border-light);
+        color: var(--tp-ink-muted);
+        border: 1px solid var(--tp-border);
+        white-space: nowrap;
+    }
+
+    .tp-method--banktransfer {
+        background: #EFF6FF;
+        color: #1D4ED8;
+        border-color: rgba(29, 78, 216, 0.15);
+    }
+
+    .tp-method--cash {
+        background: var(--tp-green-pale);
+        color: var(--tp-green-deep);
+        border-color: rgba(74, 124, 32, 0.2);
+    }
+
+    .tp-method--pos {
+        background: #F5F3FF;
+        color: #6D28D9;
+        border-color: rgba(109, 40, 217, 0.15);
+    }
+
+    /* ── Smart Badges ──────────────────────────────── */
+    .tp-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 9px;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+    }
+
+    .tp-badge--paid {
+        background: var(--tp-status-completed-bg);
+        color: var(--tp-status-completed);
+        border: 1px solid rgba(22, 163, 74, 0.2);
+    }
+
+    .tp-badge--partial {
+        background: var(--tp-status-partial-bg);
+        color: var(--tp-status-partial);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .tp-badge--unpaid {
+        background: var(--tp-status-unpaid-bg);
+        color: var(--tp-status-unpaid);
+        border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+
+    /* ── Table Footer / Pagination ─────────────────── */
+    .tp-table-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 16px;
+        margin-top: 4px;
+        border-top: 1px solid var(--tp-border-light);
+    }
+
+    .tp-table-footer__count {
+        font-size: 0.78rem;
+        color: var(--tp-ink-faint);
+    }
+
+    .tp-pagination {
+        display: flex;
+        gap: 4px;
+    }
+
+    .tp-page-btn {
+        min-width: 30px;
+        height: 30px;
+        border-radius: var(--tp-radius-sm);
+        border: 1px solid var(--tp-border);
+        background: transparent;
+        font-size: 0.8rem;
+        color: var(--tp-ink-muted);
+        cursor: pointer;
+        transition: all 0.15s;
+        padding: 0 6px;
+    }
+
+    .tp-page-btn:hover:not(:disabled) {
+        border-color: var(--tp-green-light);
+        color: var(--tp-green-deep);
+    }
+
+    .tp-page-btn--active {
+        background: var(--tp-green-deep);
+        border-color: var(--tp-green-deep);
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .tp-page-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+    }
+
+    /* ── Form Stub ─────────────────────────────────── */
+    .tp-form-stub {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .tp-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tp-field__label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+    }
+
+    .tp-field__input {
+        padding: 9px 12px;
+        border-radius: var(--tp-radius-sm);
+        border: 1px solid var(--tp-border);
+        background: var(--tp-canvas);
+        font-size: 0.86rem;
+        color: var(--tp-ink);
+        outline: none;
+        width: 100%;
+        transition: border-color 0.15s;
+    }
+
+    .tp-field__input:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .tp-field__input:not(:disabled):focus {
+        border-color: var(--tp-green-light);
+        box-shadow: 0 0 0 3px rgba(168, 212, 90, 0.15);
+    }
+
+    /* ── Unpaid Invoices List ──────────────────────── */
+    .tp-invoice-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .tp-invoice-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 11px 0;
+        border-bottom: 1px solid var(--tp-border-light);
+    }
+
+    .tp-invoice-item:last-child {
+        border-bottom: none;
+    }
+
+    .tp-invoice-item__left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .tp-invoice-item__id {
+        font-family: sans-serif;
+        font-size: 0.75rem;
+        color: var(--tp-ink-faint);
+    }
+
+    .tp-invoice-item__client {
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--tp-ink);
+    }
+
+    .tp-invoice-item__right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+    }
+
+    .tp-invoice-item__amount {
+        font-family: 'Georgia', serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #DC2626;
+    }
+
+    .tp-invoice-item__due {
+        font-size: 0.7rem;
+        color: var(--tp-ink-faint);
+    }
+
+    /* ── Method Breakdown Bars ─────────────────────── */
+    .tp-method-breakdown {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .tp-method-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tp-method-row__label {
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--tp-ink-muted);
+        width: 110px;
+        flex-shrink: 0;
+    }
+
+    .tp-method-row__bar-wrap {
+        flex: 1;
+        height: 6px;
+        background: var(--tp-border-light);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .tp-method-row__bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--tp-green-mid), var(--tp-green-light));
+        border-radius: 6px;
+        transition: width 0.5s ease;
+    }
+
+    .tp-method-row__bar--b {
+        background: linear-gradient(90deg, #5A8A2A, #A8D45A);
+        opacity: 0.7;
+    }
+
+    .tp-method-row__bar--c {
+        background: var(--tp-green-light);
+        opacity: 0.5;
+    }
+
+    .tp-method-row__pct {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--tp-ink-muted);
+        width: 32px;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    .caution {
+        text-align: center;
+        font-weight: 900;
+    }
+
+    /* ── Responsive ────────────────────────────────── */
+    @@media (max-width: 1024px) {
+        .tp-pay-workspace {
+            grid-template-columns: 1fr;
+        }
+
+        .tp-pay-kpis {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tp-content {
+            padding: 24px 20px 48px;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .tp-pay-kpis {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tp-topbar {
+            padding: 12px 16px;
+        }
+
+        .tp-content {
+            padding: 16px 16px 48px;
+        }
+
+        .tp-page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+    }
+</style>
+
+@code {
+
+    // ── Placeholder transactions ─────────────────────────────────────
+    private List<PaymentTransaction> Transactions = new()
+    {
+        new("0041", "Amaka Osei", "02 Jun 2026", "Bank Transfer", "Paid", 95000),
+        new("0040", "Tunde Fashola", "01 Jun 2026", "Cash", "Paid", 42500),
+        new("0039", "Ngozi Eze", "30 May 2026", "Bank Transfer", "Partial", 68000),
+        new("0038", "Emeka Dike", "29 May 2026", "POS", "Paid", 31000),
+        new("0037", "Fatima Al-Hassan", "27 May 2026", "Cash", "Unpaid", 55000),
+        new("0036", "Chidi Okeke", "25 May 2026", "Bank Transfer", "Paid", 110000),
+        new("0035", "Blessing Nwosu", "22 May 2026", "Bank Transfer", "Partial", 47500),
+        new("0034", "Kunle Adeyemi", "20 May 2026", "Cash", "Paid", 28000),
+    };
+
+    // ── Placeholder unpaid invoices ──────────────────────────────────
+    private List<UnpaidInvoice> UnpaidInvoices = new()
+    {
+        new("0037", "Fatima Al-Hassan", 55000, "10 Jun 2026"),
+        new("0033", "Yemi Adebayo", 80000, "08 Jun 2026"),
+        new("0031", "Grace Mensah", 50000, "05 Jun 2026"),
+    };
+
+    // ── Stub models ──────────────────────────────────────────────────
+    public record PaymentTransaction(
+        string OrderId,
+        string ClientName,
+        string Date,
+        string Method,
+        string Status,
+        decimal Amount
+    )
+    {
+        // Maps Status string → CSS badge modifier
+        public string StatusClass => Status.ToLower();
+    }
+
+    public record UnpaidInvoice(
+        string OrderId,
+        string ClientName,
+        decimal Amount,
+        string DueDate
+    );
+}

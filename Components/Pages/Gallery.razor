@@ -1,9 +1,36 @@
 @page "/gallery"
+@using TailorPro.Components.Account.Shared
 
 <h3 class="mb-4">Gallery</h3>
 
-<div class="row">
-    <div class="col-md-4 mb-3">
-        <img src="images/hero.jpg" class="img-fluid rounded shadow" />
-    </div>
-</div>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    @foreach (var item in galleryItems)
+    {
+        <div class="col">
+            <div class="gallery-card h-100">
+                <img src="@item.Image" alt="@item.Title" class="img-fluid gallery-image" />
+                <div class="gallery-caption">
+                    <h4 class="h6 mb-1">@item.Title</h4>
+                    <p class="text-muted small mb-0">@item.Description</p>
+                </div>
+            </div>
+        </div>
+    }
+</div 
+
+@code {
+    private readonly List<GalleryItem> galleryItems = new()
+    {
+        new GalleryItem("Bespoke Suit", "images/bespoke-suit.jpg", "Tailored suits crafted for a flawless fit."),
+        new GalleryItem("Dress Shirt", "images/dress-shirt.jpg", "Crisp shirts finished with sharp details."),
+        new GalleryItem("Kente Gown", "images/kente-gown.jpg", "Bold patterns and custom tailoring in rich colors."),
+        new GalleryItem("Ladies Skirt Suit", "images/ladies-skirt-suit.jpg", "Elegant coordinates for modern style."),
+        new GalleryItem("Senator Wear", "images/senator-wear.jpg", "Traditional senator outfits with refined tailoring."),
+        new GalleryItem("Senator Wear 2", "images/senator-wear (1).jpg", "A second perspective on premium senator wear."),
+        new GalleryItem("Trouser Hemming", "images/trouser-hemming.jpg", "Precision hemming for a polished finish."),
+        new GalleryItem("Wedding Dress", "images/wedding-dress.jpg", "Bridal gowns designed for your special day."),
+        new GalleryItem("Zip & Button Repair", "images/zip-button-repair.jpg", "Expert repair work for wardrobe essentials.")
+    };
+
+    private sealed record GalleryItem(string Title, string Image, string Description);
+}

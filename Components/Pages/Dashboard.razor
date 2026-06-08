@@ -1,130 +1,1056 @@
 @page "/dashboard"
-@inject TailorPro.Services.DashboardService DashboardService
-@inject IJSRuntime JS
+@using TailorPro.Components.Account.Shared
+@inject DashboardService DashboardService
 
-<h2 class="mb-4 fw-bold">📊 Dashboard Overview</h2>
+<div class="tp-shell">
 
-<div class="row g-4">
+    @* ZONE 1 — HEADER + WELCOME BANNER *@
+    <header class="tp-topbar">
+        <div class="tp-topbar__brand">
+            <span class="tp-topbar__logo-mark">✦</span>
+            <span class="tp-topbar__app-name">TailorPro</span>
+        </div>
+        <div class="tp-topbar__meta">
+            <span class="tp-topbar__date">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</span>
+        </div>
+    </header>
 
-    <!-- Total Orders -->
-    <div class="col-md-3">
-        <div class="card shadow-lg stat-card border-0 text-white bg-primary">
-            <div class="card-body">
-                <h6>Total Orders</h6>
-                <h2>@totalOrders</h2>
+    <div class="tp-content">
+
+        <div class="tp-welcome">
+            <div class="tp-welcome__text">
+                <p class="tp-welcome__eyebrow">Business Overview</p>
+                <h1 class="tp-welcome__heading">Welcome back 👋</h1>
+                <p class="tp-welcome__sub">
+                    You have
+                    <strong class="tp-welcome__accent">@DashboardData.TotalOrders orders</strong>
+                    active this period, with total earnings of
+                    <strong class="tp-welcome__accent">₦@DashboardData.TotalRevenue.ToString("N0")</strong>.
+                    Completion rate is running at
+                    <strong class="tp-welcome__accent">@DashboardData.CompletionRate.ToString("0")%</strong>.
+                </p>
+            </div>
+            <div class="tp-welcome__badges">
+                <div class="tp-pill tp-pill--growth">
+                    <span class="tp-pill__icon">↑</span>
+                    <span>@DashboardData.RevenueGrowth.ToString("0.0")% MoM</span>
+                </div>
+                <div class="tp-pill tp-pill--neutral">
+                    <span>@DashboardData.PendingOrders pending</span>
+                </div>
+            </div>
+        </div>
+
+        @* ZONE 2 — KPI METRIC CARDS (4-col) *@
+        <div class="tp-kpi-grid">
+
+            <div class="tp-kpi">
+                <div class="tp-kpi__icon tp-kpi__icon--orders">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 4h14M3 8h14M3 12h8" stroke="currentColor" stroke-width="1.6"
+                              stroke-linecap="round" />
+                    </svg>
+                </div>
+                <p class="tp-kpi__label">Total Orders</p>
+                <p class="tp-kpi__value">@DashboardData.TotalOrders</p>
+                <p class="tp-kpi__sub">@DashboardData.PendingOrders pending · @DashboardData.DeliveredOrders delivered
+                </p>
+            </div>
+
+            <div class="tp-kpi">
+                <div class="tp-kpi__icon tp-kpi__icon--revenue">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                        d="M10 2v1.5M10 16.5V18M5.5 5.5l1 1M13.5 13.5l1 1M2 10h1.5M16.5 10H18M5.5 14.5l1-1M13.5 6.5l1-1"
+                        stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                        <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.6" />
+                    </svg>
+                </div>
+                <p class="tp-kpi__label">Total Revenue</p>
+                <p class="tp-kpi__value">₦@DashboardData.TotalRevenue.ToString("N0")</p>
+                <p class="tp-kpi__sub">Avg ₦@DashboardData.AverageOrderValue.ToString("N0") / order</p>
+            </div>
+
+            <div class="tp-kpi">
+                <div class="tp-kpi__icon tp-kpi__icon--customers">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.6" />
+                        <path d="M2 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.6"
+                              stroke-linecap="round" />
+                        <path d="M15 8.5a2.5 2.5 0 1 0 0-5M18 17c0-2.21-1.343-4.1-3.2-4.8" stroke="currentColor"
+                              stroke-width="1.6" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <p class="tp-kpi__label">Customers</p>
+                <p class="tp-kpi__value">@DashboardData.TotalCustomers</p>
+                <p class="tp-kpi__sub">Lifetime client base</p>
+            </div>
+
+            <div class="tp-kpi">
+                <div class="tp-kpi__icon tp-kpi__icon--completion">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.6" />
+                        <path d="M6.5 10.5l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.6"
+                              stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <p class="tp-kpi__label">Completion Rate</p>
+                <p class="tp-kpi__value">@DashboardData.CompletionRate.ToString("0")%</p>
+                <div class="tp-progress">
+                    <div class="tp-progress__bar" style="width: @DashboardData.CompletionRate.ToString("0")%"></div>
+                </div>
+            </div>
+
+        </div>
+
+        @* ZONE 3 — MAIN CONTENT + SIDEBAR SPLIT *@
+        <div class="tp-workspace">
+
+            <div class="tp-main-col">
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Recent Orders</h2>
+                        <a href="/orders" class="tp-panel__action">View all →</a>
+                    </div>
+
+                    @if (RecentOrders.Count == 0)
+                    {
+                        <div class="tp-empty">
+                            <p>No orders recorded yet.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tp-table-wrap">
+                            <table class="tp-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Status</th>
+                                        <th class="tp-table__amt">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in RecentOrders)
+                                    {
+                                        <tr>
+                                            <td class="tp-table__id">#@order.Id</td>
+                                            <td class="tp-table__customer">@order.Customer.FullName</td>
+                                            <td>
+                                                <span class="tp-badge tp-badge--@GetStatusClass(order.Status)">
+                                                    @order.Status
+                                                </span>
+                                            </td>
+                                            <td class="tp-table__amt">₦@order.Price.ToString("N0")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Upcoming Deliveries</h2>
+                        <span class="tp-panel__count">@UpcomingDeliveries.Count due</span>
+                    </div>
+
+                    @if (!UpcomingDeliveries.Any())
+                    {
+                        <div class="tp-empty">
+                            <p>No upcoming deliveries scheduled.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tp-deliveries">
+                            @foreach (var order in UpcomingDeliveries)
+                            {
+                                <div class="tp-ticket">
+                                    <div class="tp-ticket__stripe"></div>
+                                    <div class="tp-ticket__body">
+                                        <div class="tp-ticket__top">
+                                            <strong class="tp-ticket__desc">@order.Description</strong>
+                                            <span class="tp-ticket__due">Due @order.DueDate?.ToString("dd MMM")</span>
+                                        </div>
+                                        <div class="tp-ticket__bottom">
+                                            <span class="tp-ticket__client">@order.Customer.FullName</span>
+                                            <span class="tp-badge tp-badge--@GetStatusClass(order.Status)">@order.Status</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            @* SIDEBAR COLUMN (col-lg-4 equivalent) *@
+            <div class="tp-sidebar-col">
+
+                @* Quick Actions *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Quick Actions</h2>
+                    </div>
+                    <div class="tp-actions">
+                        <a href="/orders" class="tp-action-tile tp-action-tile--primary">
+                            <span class="tp-action-tile__icon">＋</span>
+                            <span class="tp-action-tile__label">New Order</span>
+                        </a>
+                        <a href="/customers" class="tp-action-tile">
+                            <span class="tp-action-tile__icon">👤</span>
+                            <span class="tp-action-tile__label">Add Client</span>
+                        </a>
+                        <a href="/payment" class="tp-action-tile">
+                            <span class="tp-action-tile__icon">₦</span>
+                            <span class="tp-action-tile__label">Record Payment</span>
+                        </a>
+                        <a href="/measurements" class="tp-action-tile">
+                            <span class="tp-action-tile__icon">📐</span>
+                            <span class="tp-action-tile__label">Measurement</span>
+                        </a>
+                    </div>
+                </div>
+
+                @* Inventory Alerts *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Inventory Alerts</h2>
+                        <span class="tp-panel__badge-count">@InventoryAlerts.Count</span>
+                    </div>
+                    @if (InventoryAlerts.Count == 0)
+                    {
+                        <div class="tp-empty">
+                            <p>All stock levels nominal.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="tp-alert-list">
+                            @foreach (var alert in InventoryAlerts)
+                            {
+                                <li class="tp-alert-item">
+                                    <span class="tp-alert-item__dot tp-alert-item__dot--@alert.Severity.ToLower()"></span>
+                                    <div class="tp-alert-item__info">
+                                        <span class="tp-alert-item__name">@alert.ItemName</span>
+                                        <span class="tp-alert-item__level">@alert.CurrentStock @alert.Unit remaining</span>
+                                    </div>
+                                    <span class="tp-alert-item__tag">@alert.Severity</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
+                @* Recent Activity *@
+                <div class="tp-panel">
+                    <div class="tp-panel__head">
+                        <h2 class="tp-panel__title">Recent Activity</h2>
+                    </div>
+                    @if (RecentActivities.Count == 0)
+                    {
+                        <div class="tp-empty">
+                            <p>No recent activity.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="tp-activity-feed">
+                            @foreach (var activity in RecentActivities)
+                            {
+                                <li class="tp-activity-item">
+                                    <span class="tp-activity-item__dot"></span>
+                                    <div class="tp-activity-item__content">
+                                        <span class="tp-activity-item__text">@activity.Description</span>
+                                        <span class="tp-activity-item__time">@activity.TimeAgo</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
             </div>
         </div>
     </div>
-
-    <!-- Pending Orders -->
-    <div class="col-md-3">
-        <div class="card shadow-lg stat-card border-0 text-white bg-warning">
-            <div class="card-body">
-                <h6>Pending</h6>
-                <h2>@pendingOrders</h2>
-            </div>
-        </div>
-    </div>
-
-    <!-- Completed Orders -->
-    <div class="col-md-3">
-        <div class="card shadow-lg stat-card border-0 text-white bg-success">
-            <div class="card-body">
-                <h6>Completed</h6>
-                <h2>@completedOrders</h2>
-            </div>
-        </div>
-    </div>
-
-    <!-- Delivered Orders -->
-    <div class="col-md-3">
-        <div class="card shadow-lg stat-card border-0 text-white bg-dark">
-            <div class="card-body">
-                <h6>Delivered</h6>
-                <h2>@deliveredOrders</h2>
-            </div>
-        </div>
-    </div>
-
 </div>
-
-<div class="row mt-4">
-
-    <!-- Revenue -->
-    <div class="col-md-6">
-        <div class="card shadow-lg revenue-card border-0 text-white bg-info">
-            <div class="card-body">
-                <h5>Total Revenue</h5>
-                <h2>₦ @totalRevenue.ToString("N2")</h2>
-            </div>
-        </div>
-    </div>
-
-    <!-- Extra Section -->
-    <div class="col-md-6">
-        <div class="card shadow-lg border-0">
-            <div class="card-body">
-                <h5>Business Summary</h5>
-                <p>Total Orders: @totalOrders</p>
-                <p>Pending: @pendingOrders</p>
-                <p>Completed: @completedOrders</p>
-                <p>Delivered: @deliveredOrders</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row mt-5">
-    <div class="col-md-6">
-        <div class="card shadow-lg p-3">
-            <h5>Order Status Distribution</h5>
-            <canvas id="orderChart"></canvas>
-        </div>
-    </div>
-</div>
-
-
 <style>
-    .stat-card {
-        transition: all 0.3s ease;
-        border-radius: 15px;
+    /* ── Design Tokens ─────────────────────────────── */
+    :root {
+        --tp-green-deep: #2D5016;
+        --tp-green-mid: #4A7C20;
+        --tp-green-light: #A8D45A;
+        --tp-green-pale: #EBF5D6;
+        --tp-ink: #1A1A18;
+        --tp-ink-muted: #5A5A54;
+        --tp-ink-faint: #9A9A90;
+        --tp-canvas: #F4F3EE;
+        --tp-surface: #FAFAF7;
+        --tp-border: #E2E0D8;
+        --tp-border-light: #EDECEA;
+
+        /* Status colors — signal, not decoration */
+        --tp-status-pending: #D97706;
+        --tp-status-pending-bg: #FFFBEB;
+        --tp-status-progress: #2563EB;
+        --tp-status-progress-bg: #EFF6FF;
+        --tp-status-completed: #16A34A;
+        --tp-status-completed-bg: #F0FDF4;
+        --tp-status-delivered: #7C3AED;
+        --tp-status-delivered-bg: #F5F3FF;
+
+        --tp-radius-sm: 8px;
+        --tp-radius-md: 12px;
+        --tp-radius-lg: 18px;
+        --tp-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+        --tp-shadow-md: 0 4px 18px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03);
     }
 
-    .stat-card:hover {
-        transform: translateY(-5px) scale(1.03);
+    /* ── Reset & Base ──────────────────────────────── */
+    .tp-shell * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
 
-    .revenue-card {
-        border-radius: 15px;
+    .tp-shell {
+        min-height: 100vh;
+        color: var(--tp-ink);
     }
 
-    h2 {
-        font-weight: bold;
+    /* Body copy uses a clean sans */
+    .tp-shell p,
+    .tp-shell td,
+    .tp-shell th,
+    .tp-shell li,
+    .tp-shell a,
+    .tp-shell span {
+        font-family: sans-serif;
+    }
+
+    /* ── Topbar ────────────────────────────────────── */
+    .tp-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 32px;
+        background: var(--tp-green-deep);
+        border-bottom: 1px solid rgba(168, 212, 90, 0.18);
+    }
+
+    .tp-topbar__brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tp-topbar__logo-mark {
+        color: var(--tp-green-light);
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    .tp-topbar__app-name {
+        font-family: sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #fff;
+    }
+
+    .tp-topbar__date {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.55);
+        letter-spacing: 0.03em;
+    }
+
+    /* ── Content Wrapper ───────────────────────────── */
+    .tp-content {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 32px 32px 64px;
+    }
+
+    /* ── Welcome Banner ────────────────────────────── */
+    .tp-welcome {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        background: var(--tp-green-deep);
+        border-radius: var(--tp-radius-lg);
+        padding: 32px 36px;
+        margin-bottom: 28px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Subtle organic texture overlay */
+    .tp-welcome::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(ellipse 60% 80% at 90% 40%, rgba(168, 212, 90, 0.12) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 60% at 10% 80%, rgba(168, 212, 90, 0.06) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .tp-welcome__text {
+        position: relative;
+        z-index: 1;
+    }
+
+    .tp-welcome__eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--tp-green-light);
+        margin-bottom: 6px;
+        font-family: sans-serif;
+    }
+
+    .tp-welcome__heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 10px;
+        letter-spacing: -0.01em;
+    }
+
+    .tp-welcome__sub {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.6;
+        max-width: 560px;
+    }
+
+    .tp-welcome__accent {
+        color: var(--tp-green-light);
+        font-weight: 600;
+    }
+
+    .tp-welcome__badges {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+    }
+
+    .tp-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .tp-pill--growth {
+        background: rgba(168, 212, 90, 0.18);
+        color: var(--tp-green-light);
+        border: 1px solid rgba(168, 212, 90, 0.3);
+    }
+
+    .tp-pill--neutral {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .tp-pill__icon {
+        font-style: normal;
+    }
+
+    /* ── KPI Metric Grid ───────────────────────────── */
+    .tp-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .tp-kpi {
+        background: var(--tp-surface);
+        border: 1px solid var(--tp-border);
+        border-radius: var(--tp-radius-md);
+        padding: 22px 22px 20px;
+        box-shadow: var(--tp-shadow-sm);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tp-kpi:hover {
+        box-shadow: var(--tp-shadow-md);
+        transform: translateY(-2px);
+    }
+
+    /* Accent left border on each card, color set per type */
+    .tp-kpi::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 16px;
+        bottom: 16px;
+        width: 3px;
+        border-radius: 0 3px 3px 0;
+        background: var(--tp-green-light);
+    }
+
+    .tp-kpi__icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--tp-radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        background: var(--tp-green-pale);
+        color: var(--tp-green-deep);
+    }
+
+    .tp-kpi__icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .tp-kpi__icon--revenue {
+        background: #FEF9EB;
+        color: #92400E;
+    }
+
+    .tp-kpi__icon--customers {
+        background: #EFF6FF;
+        color: #1D4ED8;
+    }
+
+    .tp-kpi__icon--completion {
+        background: var(--tp-green-pale);
+        color: var(--tp-green-deep);
+    }
+
+    .tp-kpi__label {
+        font-size: 0.73rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+        margin-bottom: 6px;
+    }
+
+    .tp-kpi__value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--tp-ink);
+        line-height: 1.1;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+    }
+
+    .tp-kpi__sub {
+        font-size: 0.73rem;
+        color: var(--tp-ink-faint);
+        line-height: 1.4;
+    }
+
+    /* Completion progress bar */
+    .tp-progress {
+        height: 4px;
+        background: var(--tp-border-light);
+        border-radius: 4px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    .tp-progress__bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--tp-green-mid), var(--tp-green-light));
+        border-radius: 4px;
+        transition: width 0.6s ease;
+        max-width: 100%;
+    }
+
+    /* ── Workspace Split Layout ────────────────────── */
+    .tp-workspace {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .tp-main-col,
+    .tp-sidebar-col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* ── Panel ─────────────────────────────────────── */
+    .tp-panel {
+        background: var(--tp-surface);
+        border: 1px solid var(--tp-border);
+        border-radius: var(--tp-radius-md);
+        padding: 24px;
+        box-shadow: var(--tp-shadow-sm);
+    }
+
+    .tp-panel__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--tp-border-light);
+    }
+
+    .tp-panel__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--tp-ink);
+        letter-spacing: -0.01em;
+    }
+
+    .tp-panel__action {
+        font-size: 0.78rem;
+        color: var(--tp-green-mid);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.15s;
+    }
+
+    .tp-panel__action:hover {
+        color: var(--tp-green-deep);
+    }
+
+    .tp-panel__count {
+        font-size: 0.75rem;
+        color: var(--tp-ink-faint);
+        font-weight: 500;
+    }
+
+    .tp-panel__badge-count {
+        min-width: 22px;
+        height: 22px;
+        background: #FEF2F2;
+        color: #DC2626;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 6px;
+    }
+
+    .tp-empty {
+        padding: 24px 0 8px;
+        text-align: center;
+        color: var(--tp-ink-faint);
+        font-size: 0.85rem;
+    }
+
+    /* ── Orders Table ──────────────────────────────── */
+    .tp-table-wrap {
+        overflow-x: auto;
+        margin: 0 -4px;
+    }
+
+    .tp-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.86rem;
+    }
+
+    .tp-table thead tr {
+        border-bottom: 1px solid var(--tp-border);
+    }
+
+    .tp-table th {
+        padding: 0 12px 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tp-ink-faint);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .tp-table td {
+        padding: 13px 12px;
+        border-bottom: 1px solid var(--tp-border-light);
+        color: var(--tp-ink);
+        vertical-align: middle;
+    }
+
+    .tp-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .tp-table tbody tr:hover td {
+        background: var(--tp-canvas);
+    }
+
+    .tp-table__id {
+        font-family: 'Courier New', monospace;
+        font-size: 0.78rem;
+        color: var(--tp-ink-faint);
+        white-space: nowrap;
+    }
+
+    .tp-table__customer {
+        font-weight: 500;
+        color: var(--tp-ink);
+    }
+
+    .tp-table__amt {
+        text-align: right;
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--tp-green-deep);
+        font-family: 'Georgia', serif;
+    }
+
+    /* ── Smart Status Badges ───────────────────────── */
+    .tp-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 9px;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+    }
+
+    .tp-badge--pending {
+        background: var(--tp-status-pending-bg);
+        color: var(--tp-status-pending);
+        border: 1px solid rgba(217, 119, 6, 0.2);
+    }
+
+    .tp-badge--inprogress,
+    .tp-badge--in-progress {
+        background: var(--tp-status-progress-bg);
+        color: var(--tp-status-progress);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .tp-badge--completed {
+        background: var(--tp-status-completed-bg);
+        color: var(--tp-status-completed);
+        border: 1px solid rgba(22, 163, 74, 0.2);
+    }
+
+    .tp-badge--delivered {
+        background: var(--tp-status-delivered-bg);
+        color: var(--tp-status-delivered);
+        border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    /* ── Delivery Tickets ──────────────────────────── */
+    .tp-deliveries {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tp-ticket {
+        display: flex;
+        align-items: stretch;
+        border: 1px solid var(--tp-border);
+        border-radius: var(--tp-radius-sm);
+        overflow: hidden;
+        transition: box-shadow 0.15s;
+    }
+
+    .tp-ticket:hover {
+        box-shadow: var(--tp-shadow-md);
+    }
+
+    .tp-ticket__stripe {
+        width: 4px;
+        background: linear-gradient(180deg, var(--tp-green-mid), var(--tp-green-light));
+        flex-shrink: 0;
+    }
+
+    .tp-ticket__body {
+        flex: 1;
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .tp-ticket__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .tp-ticket__desc {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--tp-ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tp-ticket__due {
+        font-size: 0.73rem;
+        color: var(--tp-status-pending);
+        font-weight: 600;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .tp-ticket__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .tp-ticket__client {
+        font-size: 0.78rem;
+        color: var(--tp-ink-muted);
+    }
+
+    /* ── Quick Actions Grid ────────────────────────── */
+    .tp-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .tp-action-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 8px;
+        border-radius: var(--tp-radius-sm);
+        border: 1px solid var(--tp-border);
+        background: var(--tp-canvas);
+        text-decoration: none;
+        color: var(--tp-ink);
+        transition: border-color 0.15s, background 0.15s, transform 0.15s;
+        cursor: pointer;
+    }
+
+    .tp-action-tile:hover {
+        border-color: var(--tp-green-light);
+        background: var(--tp-green-pale);
+        transform: translateY(-1px);
+        box-shadow: var(--tp-shadow-sm);
+    }
+
+    .tp-action-tile--primary {
+        background: var(--tp-green-deep);
+        border-color: var(--tp-green-deep);
+        color: #fff;
+    }
+
+    .tp-action-tile--primary:hover {
+        background: var(--tp-green-mid);
+        border-color: var(--tp-green-mid);
+    }
+
+    .tp-action-tile__icon {
+        font-size: 1.3rem;
+        line-height: 1;
+    }
+
+    .tp-action-tile__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-align: center;
+    }
+
+    /* ── Inventory Alert List ──────────────────────── */
+    .tp-alert-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .tp-alert-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--tp-border-light);
+    }
+
+    .tp-alert-item:last-child {
+        border-bottom: none;
+    }
+
+    .tp-alert-item__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: var(--tp-ink-faint);
+    }
+
+    .tp-alert-item__dot--critical {
+        background: #DC2626;
+    }
+
+    .tp-alert-item__dot--low {
+        background: #D97706;
+    }
+
+    .tp-alert-item__dot--warning {
+        background: #CA8A04;
+    }
+
+    .tp-alert-item__info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tp-alert-item__name {
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: var(--tp-ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tp-alert-item__level {
+        font-size: 0.72rem;
+        color: var(--tp-ink-faint);
+    }
+
+    .tp-alert-item__tag {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #DC2626;
+        padding: 2px 7px;
+        border-radius: 100px;
+        background: #FEF2F2;
+        flex-shrink: 0;
+    }
+
+    /* ── Activity Feed ─────────────────────────────── */
+    .tp-activity-feed {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-left: 16px;
+    }
+
+    /* Vertical timeline line */
+    .tp-activity-feed::before {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: var(--tp-border);
+    }
+
+    .tp-activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 9px 0;
+        position: relative;
+    }
+
+    .tp-activity-item__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tp-green-light);
+        border: 2px solid var(--tp-surface);
+        outline: 1px solid var(--tp-green-mid);
+        flex-shrink: 0;
+        margin-top: 3px;
+        position: absolute;
+        left: -16px;
+    }
+
+    .tp-activity-item__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .tp-activity-item__text {
+        font-size: 0.82rem;
+        color: var(--tp-ink);
+        line-height: 1.4;
+    }
+
+    .tp-activity-item__time {
+        font-size: 0.7rem;
+        color: var(--tp-ink-faint);
     }
 </style>
 
 @code {
-    private int totalOrders;
-    private int pendingOrders;
-    private int completedOrders;
-    private int deliveredOrders;
-    private decimal totalRevenue;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-    if (firstRender)
+    private DashboardSummary DashboardData = new();
+    private List<Order> RecentOrders = new();
+    private List<Order> UpcomingDeliveries = new();
+
+    // Wire these to your actual service methods when available
+    private List<InventoryAlert> InventoryAlerts = new();
+    private List<ActivityItem> RecentActivities = new();
+
+    protected override void OnInitialized()
     {
-        totalOrders = DashboardService.GetTotalOrders();
-        pendingOrders = DashboardService.GetPendingOrders();
-        completedOrders = DashboardService.GetCompletedOrders();
-        deliveredOrders = DashboardService.GetDeliveredOrders();
-        totalRevenue = DashboardService.GetTotalRevenue();
+        DashboardData = DashboardService.GetDashboardSummary();
+        RecentOrders = DashboardService.GetRecentOrders();
+        UpcomingDeliveries = DashboardService.GetUpcomingDeliveries();
 
-        await JS.InvokeVoidAsync("renderOrderChart",
-            pendingOrders,
-            completedOrders,
-            deliveredOrders);
+        // TODO: Replace with real service calls once methods exist
+        // InventoryAlerts = DashboardService.GetInventoryAlerts();
+        // RecentActivities = DashboardService.GetRecentActivities();
     }
-}
+
+    /// <summary>
+    /// Maps an OrderStatus enum value to its corresponding CSS badge modifier class.
+    /// </summary>
+    private static string GetStatusClass(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending => "pending",
+        OrderStatus.InProgress => "inprogress",
+        OrderStatus.Completed => "completed",
+        OrderStatus.Delivered => "delivered",
+        _ => "pending"
+    };
+
+    // ── Stub models — remove when real models exist ──────────────────
+
+    public record InventoryAlert(string ItemName, int CurrentStock, string Unit, string Severity);
+
+    public record ActivityItem(string Description, string TimeAgo);
 }

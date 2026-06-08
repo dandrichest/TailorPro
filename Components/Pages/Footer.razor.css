@@ -1,0 +1,244 @@
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    .ft {
+        background: #1a2410;
+        color: #c8d9b0;
+        padding: 36px 24px 0;
+        font-family: -apple-system, sans-serif
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1.2fr 1.4fr;
+        gap: 28px;
+        padding-bottom: 32px
+    }
+
+    @media
+    (max-width: 768px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ft {
+            padding: 24px 16px 0;
+        }
+
+        .bot {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .blinks {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px
+    }
+
+    .bn {
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff
+    }
+
+    .ba {
+        color: #A8D45A
+    }
+
+    .tl {
+        font-size: 12px;
+        color: #7a9460;
+        line-height: 1.7;
+        margin-bottom: 16px;
+        max-width: 220px
+    }
+
+    .socials {
+        display: flex;
+        gap: 7px
+    }
+
+    .sb {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px;
+        background: #2D5016;
+        color: #A8D45A;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.15s
+    }
+
+    .sb:hover {
+        background: #A8D45A;
+        color: #1a2410
+    }
+
+    .ct {
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 12px
+    }
+
+    .fl {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 7px
+    }
+
+    .fl a {
+        font-size: 12px;
+        color: #7a9460;
+        text-decoration: none;
+        transition: color 0.15s
+    }
+
+    .fl a:hover {
+        color: #A8D45A
+    }
+
+    .cl {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px
+    }
+
+    .cl li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12px;
+        color: #7a9460;
+        line-height: 1.5
+    }
+
+    .ci {
+        color: #A8D45A;
+        margin-top: 1px;
+        flex-shrink: 0
+    }
+
+    .nt {
+        font-size: 12px;
+        color: #7a9460;
+        line-height: 1.6;
+        margin-bottom: 10px
+    }
+
+    .nf {
+        display: flex;
+        border-radius: 7px;
+        overflow: hidden;
+        border: 1.5px solid #2D5016;
+        margin-bottom: 8px
+    }
+
+    .ni {
+        flex: 1;
+        background: #233318;
+        border: none;
+        padding: 8px 10px;
+        font-size: 12px;
+        color: #c8d9b0;
+        outline: none;
+        min-width: 0
+    }
+
+    .ni::placeholder {
+        color: #4a6535
+    }
+
+    .nbtn {
+        background: #2D5016;
+        color: #A8D45A;
+        border: none;
+        padding: 8px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer
+    }
+
+    .nbtn:hover {
+        background: #3d6b1e
+    }
+
+    .badges {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 10px;
+        color: #4a6535;
+        background: #233318;
+        padding: 3px 8px;
+        border-radius: 20px;
+        border: 1px solid #2D5016
+    }
+
+    .div {
+        border-top: 1px solid #2D5016
+    }
+
+    .bot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 14px 0
+    }
+
+    .copy {
+        font-size: 11px;
+        color: #4a6535
+    }
+
+    .blinks {
+        display: flex;
+        gap: 14px
+    }
+
+    .blinks a {
+        font-size: 11px;
+        color: #4a6535;
+        text-decoration: none
+    }
+
+    .blinks a:hover {
+        color: #A8D45A
+    }
+
+    .made {
+        font-size: 11px;
+        color: #4a6535;
+        display: flex;
+        align-items: center;
+        gap: 3px
+    }
