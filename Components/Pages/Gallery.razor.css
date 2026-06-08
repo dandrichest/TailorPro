@@ -27,8 +27,7 @@
         margin-bottom: 0.35rem;
     }
 
-    @media
-    (max-width: 576px) {
+    @media (max-width: 576px) {
         .gallery-image {
             height: 190px;
         }
