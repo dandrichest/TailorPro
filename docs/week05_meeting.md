@@ -25,6 +25,8 @@ Submission
 
 git clone git clone https://github.com/dandrichest/TailorPro.git
 
+Project board: https://github.com/users/dandrichest/projects/1
+
 ## 🌍 Live App
 https://tailorpro-0ij0.onrender.com/
 
