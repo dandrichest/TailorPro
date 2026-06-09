@@ -146,4 +146,29 @@ TailorPro is designed to work on:
 
 ```bash
 git clone git clone https://github.com/dandrichest/TailorPro.git
-```
+
+## 🌍 Live App
+https://tailorpro-0ij0.onrender.com/
+
+## 📌 Features
+- Customer Management
+- Order Tracking
+- Measurement Records
+- Dashboard with Analytics
+- Cart System for Services
+- Interactive UI with Charts
+
+## 🛠 Technologies Used
+- ASP.NET Core (Blazor)
+- Entity Framework Core
+- SQLite
+- Chart.js
+- Docker
+- Render (Deployment)
+
+## 🚀 How to Run Locally
+1. Clone repository
+2. Run:
+   dotnet run
+3. Open browser:
+   http://localhost:5000
