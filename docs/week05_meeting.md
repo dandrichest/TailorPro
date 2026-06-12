@@ -30,6 +30,8 @@ Project board: https://github.com/users/dandrichest/projects/1
 ## 🌍 Live App
 https://tailorpro-0ij0.onrender.com/
 
+Video Link: https://youtu.be/vAmWgwjJ5Xw?si=oZOtZGZ7DcMjT5iD
+
 ## 📌 Features
 - Customer Management
 - Order Tracking
