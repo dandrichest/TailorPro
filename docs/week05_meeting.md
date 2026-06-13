@@ -8,6 +8,7 @@ Participants
 Daniel Oyeniyi
 Prince Godwyll
 Freedom Mukanza
+Oluwatigbo Alao
 
 Summary
 TailorPro is a web-based application developed using Blazor. It helps tailoring businesses manage customers, orders, and measurements efficiently. The system includes a dashboard for tracking order statistics and revenue, a service catalog, and a cart system for selecting tailoring services. The application was deployed using Docker and hosted on Render.
